@@ -34,7 +34,7 @@ ReactDOM.render((
           <Route path="/ingestion" component={IngestionForm}/>
           <Route path="/ingestion-wizard" component={WizardContainer} />
           <Route path="/dataset" component={Dataset}/>
-          <Route path="/datasetdetail/:dataset" component={DatasetDetail}/>
+          <Route path="/datasetdetail/:name" component={DatasetDetail}/>
         </div>
       </Router>
   </Provider>

@@ -91,7 +91,7 @@ const page = [
           "id": "232cad97-ecf2-447d-9656-63899023887f",
           "approval_status": "approved"
         },
-        "name": "test-dcatapit-api-2",
+        "name": "test-dcatapit-api-1",
         "language": "{ENG,ITA}",
         "url": "",
         "isopen": false,
@@ -303,7 +303,7 @@ const page = [
           "id": "232cad97-ecf2-447d-9656-63899023887f",
           "approval_status": "approved"
         },
-        "name": "test-dcatapit-api-2",
+        "name": "test-dcatapit-api-3",
         "language": "{ENG,ITA}",
         "url": "",
         "isopen": false,

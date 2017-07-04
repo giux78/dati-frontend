@@ -8,7 +8,7 @@ import {
   loadDatasets,
   unloadDatasets
 } from '../actions'
-import DatasetPreview from '../components/Dataset/DatasetPreview'
+import DatasetList from '../components/Dataset/DatasetList'
 
 class Dataset extends Component {
   constructor(props) {
@@ -45,12 +45,7 @@ class Dataset extends Component {
         </p>
         
         <div>
-        {datasets && datasets.map(dataset => {
-          return (
-            <DatasetPreview dataset={dataset} />
-          );
-        })
-        }
+          <DatasetList datasets={datasets}/>
         </div> 
       </div>
     )
