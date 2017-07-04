@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const DatasetPreview = props => {
   const dataset = props.dataset;
-  var linkTo = "/datasetdetail/" + dataset.title;
+  var linkTo = "/datasetdetail/name:" + dataset.name;
 
   return (
     <div>
