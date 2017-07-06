@@ -1,6 +1,7 @@
 import React from 'react';
 import SlimHeader from './SlimHeader'
 import {  opts,listToMegaMenu, Megamenu} from './megamenu'
+import Navigation from '../../container/Nav'
 
 class MegaHeader extends React.Component {
   render() {
@@ -98,12 +99,20 @@ class MegaHeader extends React.Component {
                   ingestion-wizard
                 </a>
               </li>
-
-              <li className="Megamenu-area">
-                  <a className="Button Button--default u-color-95" href="#">Login</a>
+              <li className="Megamenu-item">
+                <a href="/dataset">
+                  dataset
+                </a>
               </li>
+              <li className="Megamenu-item">
+                <a href="/areautente">
+                  area utente
+                </a>
+              </li>
+              <Navigation/>
           </ul>
       </nav>
+       
       </div>
 
     );
