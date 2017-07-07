@@ -34,19 +34,21 @@ class Dataset extends Component {
   render() {
     const { selectedSubreddit, datasets, isFetching, lastUpdated } = this.props
     return (
-      <div>
-        <p>
-            
-        </p>
-        <p>
-            <input />
-            <button onClick={this.handleLoadDatasetClick}>Cerca</button>
-            <button onClick={this.handleUnloadDatasetClick}>Pulisci</button>
-        </p>
-        
-        <div>
-          <DatasetList datasets={datasets}/>
-        </div> 
+      <div className="col-sm-6 col-sm-offset-3">
+        <h1> Dataset </h1>
+        <form>
+          <div className="form-group">
+            <label>Cerca tra i dati della pubblica amministrazione.</label>
+            <input className="form-control" placeholder="Input"/>
+          </div>
+          <span>
+            <button type="submit" onClick={this.handleLoadDatasetClick} className="btn btn-primary">Cerca</button>
+          </span>
+          <span>
+            <button type="submit" onClick={this.handleUnloadDatasetClick} className="btn btn-primary">Pulisci</button>
+          </span>
+        </form>
+        <DatasetList datasets={datasets}/>
       </div>
     )
   }
