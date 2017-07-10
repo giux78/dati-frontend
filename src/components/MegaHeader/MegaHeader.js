@@ -58,11 +58,8 @@ class MegaHeader extends React.Component {
                 </ul>
               </div>
               <div className="Header-search" id="header-search">
-
-
               </div>
             </div>
-
             <div className="Header-toggle Grid-cell">
               <a className="Hamburger-toggleContainer js-fr-offcanvas-open u-nojsDisplayInlineBlock u-lg-hidden u-md-hidden" href="#menu"
                 aria-controls="menu" aria-label="accedi al menu" title="accedi al menu">
@@ -70,7 +67,6 @@ class MegaHeader extends React.Component {
                 <span className="Header-toggleText" role="presentation">Menu</span>
               </a>
             </div>
-
           </div>
         </div>
 

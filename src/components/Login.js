@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { login, resetPassword } from '../helpers/auth'
+import HomePrivata from '../container/HomePrivata'
+import { Route, Redirect } from 'react-router-dom'
 
 function setErrorMsg(error) {
   return {
@@ -15,12 +17,15 @@ export default class Login extends Component {
       .catch((error) => {
           this.setState(setErrorMsg('Invalid username/password.'))
         })
-  }
+    console.log('login effettuato');
+}
+
   resetPassword = () => {
     resetPassword(this.email.value)
       .then(() => this.setState(setErrorMsg(`Password reset email sent to ${this.email.value}.`)))
       .catch((error) => this.setState(setErrorMsg(`Email address not found.`)))
   }
+
   render () {
     return (
       <div className="col-sm-6 col-sm-offset-3">
