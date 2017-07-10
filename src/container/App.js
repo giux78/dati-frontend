@@ -1,159 +1,120 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom'
-import WizardContainer from './WizardContainer'
-import IngestionForm from './IngestionForm'
-import DatasetDetail from '../components/Dataset/DatasetDetail'
-import Dataset from './Dataset'
+import React, { Component } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom'
+import Login from '../components/Login'
+import Register from '../components/Register'
 import Home from './Home'
-import Login from './Login'
-import AreaUtente from './AreaUtente'
-import MegaHeader from '../components/MegaHeader/MegaHeader'
-import configureStore from '../configureStore'
+import HomePrivata from './HomePrivata'
+import { logout } from '../helpers/auth'
+import { firebaseAuth } from '../config/constants'
 import { Provider } from 'react-redux';
-import { firebase } from '../backend/core';  
-import { history } from '../history'; 
-import Navigation from './Nav'
+import configureStore from '../configureStore'
+import DatasetDetail from '../components/Dataset/DatasetDetail'
+import WizardContainer from './WizardContainer'
 
 const store = configureStore();
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
   return (
-    <Route {...rest}
-      render={(props) => authed === false
+    <Route
+      {...rest}
+      render={(props) => authed === true
         ? <Component {...props} />
         : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
     />
   )
 }
 
-const App = (state) => (
-  <Provider store={store}>
-  <Router {...state}>
-    <div>
-      <MegaHeader/>
-      <Route exact path="/" component={Home}/>
-      <Route path="/login" component={Login}/>
-      <Route path="/ingestion" component={IngestionForm}/>
-      <Route path="/ingestion-wizard" component={WizardContainer} />
-      <Route path="/dataset" component={Dataset}/>
-      <Route path="/datasetdetail/:name" component={DatasetDetail}/>
-      <PrivateRoute authed={true} path='/areautente' component={AreaUtente} />
-    </div>
-  </Router>
-  
- </Provider>
-)
-
-const initialState = { 
-  location: window.location.pathname, 
-}; 
- 
- 
-function activateHistoryListener() { 
-  history.listen((location) => { 
-    const user = firebase.auth().currentUser;      
-    const newState = Object.assign(initialState, {  
-      location: user ? location.pathname : '/login',            
-    }); 
-    App(newState); 
-  }); 
-}
- 
-function activateAuthListener() { 
-  
-  firebase.auth().onAuthStateChanged(((user) => {      
-    console.log('user: ' + user);  
-    if (user && window.location.pathname === '/login') { 
-      return history.push('/'); 
-    } 
-    //return history.push(user ? window.location.pathname : '/login'); 
-  })); 
-} 
- 
-App(initialState); 
-activateHistoryListener();   
-activateAuthListener();      
-
-
-
-
-
-/*
- <PrivateRoute path="/datastories" component={Datastories}/>
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true
-    setTimeout(cb, 100) // fake async
-  },
-  signout(cb) {
-    this.isAuthenticated = false
-    setTimeout(cb, 100)
-  }
-}
-
-export const AuthButton = withRouter(({ history }) => (
-  fakeAuth.isAuthenticated ? (
-    <p>
-      Welcome! <button onClick={() => {
-        fakeAuth.signout(() => history.push('/'))
-      }}>Sign out</button>
-    </p>
-  ) : (
-    <p>You are not logged in.</p>
+function PublicRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => authed === false
+        ? <Component {...props} />
+        : <Redirect to='/dashboard' />}
+    />
   )
-))
+}
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    fakeAuth.isAuthenticated ? (
-      <Component {...props}/>
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }}/>
-    )
-  )}/>
-)
-
-const Public = () => <h3>Public</h3>
-const Protected = () => <h3>Protected</h3>
-
-class Login extends React.Component {
+export default class App extends Component {
   state = {
-    redirectToReferrer: false
+    authed: false,
+    loading: true,
   }
-
-  login = () => {
-    fakeAuth.authenticate(() => {
-      this.setState({ redirectToReferrer: true })
+  componentDidMount () {
+    this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          authed: true,
+          loading: false,
+        })
+      } else {
+        this.setState({
+          authed: false,
+          loading: false
+        })
+      }
     })
   }
-
+  componentWillUnmount () {
+    this.removeListener()
+  }
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } }
-    const { redirectToReferrer } = this.state
-    
-    if (redirectToReferrer) {
-      return (
-        <Redirect to={from}/>
-      )
-    }
-    
-    return (
-      <div>
-        <p>You must log in to view the page at {from.pathname}</p>
-        <button onClick={this.login}>Log in</button>
-      </div>
-    )
+    return this.state.loading === true ? <h1>Loading</h1> : (
+      <Provider store={store}>
+      <BrowserRouter>
+        <div>
+          <nav className="navbar navbar-default navbar-static-top">
+            <div className="container">
+              <div className="navbar-header">
+                <Link to="/" className="navbar-brand">Data Portal</Link>
+              </div>
+              <ul className="nav navbar-nav pull-right">
+                <li>
+                  <Link to="/" className="navbar-brand">Home</Link>
+                </li>
+                <li>
+                {this.state.authed &&
+                  <Link to="/dashboard" className="navbar-brand">Area Privata</Link> 
+                }
+                </li>
+                <li>
+                {this.state.authed &&
+                  <Link to="/ingestion-wizard" className="navbar-brand">Ingestion</Link>
+                }
+                </li>
+                <li>
+                  {this.state.authed
+                    ? <button
+                        style={{border: 'none', background: 'transparent'}}
+                        onClick={() => {
+                          logout()
+                        }}
+                        className="navbar-brand">Logout</button>
+                    : <span>
+                        <Link to="/login" className="navbar-brand">Login</Link>
+                        <Link to="/register" className="navbar-brand">Register</Link>
+                      </span>}
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <div className="container">
+            <div className="row">
+              <Switch>
+                <Route path='/' exact component={Home} />
+                <Route authed={this.state.authed} path='/login' component={Login} />
+                <Route authed={this.state.authed} path='/register' component={Register} />
+                <Route path="/datasetdetail/:name" component={DatasetDetail}/>
+                <PrivateRoute authed={this.state.authed} path='/dashboard' component={HomePrivata} />
+                <PrivateRoute authed={this.state.authed} path='/ingestion-wizard' component={WizardContainer} />
+                <Route render={() => <h3>No Match</h3>} />
+              </Switch>
+            </div>
+          </div>
+        </div>
+      </BrowserRouter>
+      </Provider>
+    );
   }
 }
-*/
-export default App

@@ -6,11 +6,11 @@ const DatasetPreview = props => {
   var linkTo = "/datasetdetail/name:" + dataset.name;
 
   return (
-    <div>
-      <h1>{dataset.title}</h1>
-      <p>Creator: {dataset.creator_name}</p>
-      <p>Issued: {dataset.issued}</p>
-      <p><i>{dataset.resources[0].description}</i></p>
+    <div className="form-group">
+      <label>{dataset.title}</label><br/>
+      <label>Creator: {dataset.creator_name}</label><br/>
+      <label>Issued: {dataset.issued}</label><br/>
+      <label>{dataset.resources[0].description}</label><br/>
     </div>
   );
 }

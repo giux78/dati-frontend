@@ -32,14 +32,15 @@ class DatasetDetail extends Component {
   render() { 
     return ( 
     this.state.dataset &&      
-        <div className="container‐fluid"> 
-          <div className="row"> 
-            <div className="col‐xs‐12 col‐sm‐6 col‐sm‐offset‐3"> 
-              <p>Informazioni dataset {this.props.match.params.name}</p>
-              <DatasetInfo dataset={this.state.dataset}/>
-            </div> 
-          </div> 
-        </div> 
+        <div className="col-sm-6 col-sm-offset-3">
+        <h1> Dettaglio dataset  </h1>
+        <form>
+          <div className="form-group">
+            <label>Informazioni dataset {this.props.match.params.name}</label>
+          </div>
+          <DatasetInfo dataset={this.state.dataset}/>
+        </form>
+      </div>
     ); 
   } 
 } 
