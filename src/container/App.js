@@ -81,7 +81,7 @@ export default class App extends Component {
                   <Link to="/ingestion-wizard" className="navbar-brand">Ingestion</Link>
                 </li>
                 <li>
-                  <Link to="/test" className="navbar-brand">Full</Link>
+                  <Link to="/admin/dashboard" className="navbar-brand">Full</Link>
                 </li>
                 <li>
                     <button
@@ -188,7 +188,7 @@ export default class App extends Component {
                 <Route path="/datasetdetail/:name" component={DatasetDetail}/>
                 <PrivateRoute authed={this.state.authed} path='/dashboard' component={HomePrivata} />
                 <PrivateRoute authed={this.state.authed} path='/ingestion-wizard' component={WizardContainer} />
-                <PrivateRoute authed={this.state.authed} path='/test' component={Full} />
+                <PrivateRoute authed={this.state.authed} path='/admin/dashboard' component={Full} />
                 <Route render={() => <h3>No Match</h3>} />
               </Switch>
             </div>
@@ -224,7 +224,7 @@ export default class App extends Component {
                 </footer>
               </div>
             </div>
-          }
+       } 
         </div>
       </BrowserRouter>
       </Provider>
