@@ -8,6 +8,9 @@ import {
   DELETE_POSTS
 } from './actions'
 
+//The reducer is just an action that take two parameter state and action
+//The reducer that handle the action will make a copy of the state,
+//modify it with the data from the action and then  returns the new state
 function selectedSubreddit(state = 'reactjs', action) {
   switch (action.type) {
     case SELECT_SUBREDDIT:
@@ -17,6 +20,7 @@ function selectedSubreddit(state = 'reactjs', action) {
   }
 }
 
+//Object.assign({}, state, .. create a new copy of the state
 function datasets(
   state = {
     isFetching: false,
@@ -71,6 +75,8 @@ function postsBySubreddit(state = {}, action) {
   }
 }
 
+//will mount each reducer with the corresponding key (postsBySubreddit, selectedSubreddit)
+//but you can change it by naming the key differently (form: reduxFormReducer)
 const rootReducer = combineReducers({
   form: reduxFormReducer,
   postsBySubreddit,

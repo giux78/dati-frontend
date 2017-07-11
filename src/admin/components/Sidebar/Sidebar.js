@@ -12,9 +12,9 @@ class Sidebar extends Component {
     return this.props.location.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
   }
 
-  // secondLevelActive(routeName) {
-  //   return this.props.location.pathname.indexOf(routeName) > -1 ? "nav nav-second-level collapse in" : "nav nav-second-level collapse";
-  // }
+   secondLevelActive(routeName) {
+     return this.props.location.pathname.indexOf(routeName) > -1 ? "nav nav-second-level collapse in" : "nav nav-second-level collapse";
+   }
 
   render() {
     return (
@@ -29,10 +29,10 @@ class Sidebar extends Component {
               Azioni
             </li>
             <li className={this.activeRoute("/components")}>
-              <a className="nav-link nav-dropdown-toggle" href="#" onClick={this.handleClick.bind(this)}><i className="icon-puzzle"></i> Caricamento</a>
+              <a className="nav-link nav-dropdown-toggle" href="#" onClick={this.handleClick.bind(this)}><i className="icon-puzzle"></i> Dataset</a>
               <ul className="nav-dropdown-items">
                 <li className="nav-item">
-                  <NavLink to={'/carica/forms'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Carica</NavLink>
+                  <NavLink to={'/admin/ingestionform'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Carica</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink to={'/components/social-buttons'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Monitora</NavLink>
@@ -63,7 +63,7 @@ class Sidebar extends Component {
             </li>
 
             <li className="nav-item">
-              <NavLink to={'/charts'} className="nav-link" activeClassName="active"><i className="icon-pie-chart"></i> Grafici</NavLink>
+              <NavLink to={'/charts'} className="nav-link" onClick={this.handleClick.bind(this)} activeClassName="active"><i className="icon-pie-chart"></i> Grafici</NavLink>
             </li>
           </ul>
         </nav>

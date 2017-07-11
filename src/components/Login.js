@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { login, resetPassword } from '../helpers/auth'
 import HomePrivata from '../container/HomePrivata'
 import { Route, Redirect } from 'react-router-dom'
+import { history } from '../history'; 
+import PropTypes from 'prop-types'
 
 function setErrorMsg(error) {
   return {
@@ -11,6 +13,7 @@ function setErrorMsg(error) {
 
 export default class Login extends Component {
   state = { loginMessage: null }
+
   handleSubmit = (e) => {
     e.preventDefault()
     login(this.email.value, this.pw.value)
@@ -18,6 +21,14 @@ export default class Login extends Component {
           this.setState(setErrorMsg('Invalid username/password.'))
         })
     console.log('login effettuato');
+
+    //return window.location.pathname = '/admin/dashboard';
+    //browserHistory.push('/admin/dashboard')
+    //this.props.history.push('/admin/dashboard');
+    //return history.push('/admin/dashboard');
+    // return <Redirect to="/admin/dashboard"/>; 
+    //return this.props.history.push('/admin/dashboard');
+    //.then(this.context.router.history.push('/admin/dashboard'))
 }
 
   resetPassword = () => {
@@ -47,7 +58,7 @@ export default class Login extends Component {
               &nbsp;{this.state.loginMessage} <a href="#" onClick={this.resetPassword} className="alert-link">Forgot Password?</a>
             </div>
           }
-          <button type="submit" className="btn btn-primary">Login</button>
+          <button type="submit" onClick={this.handleSubmit.bind(this)} className="btn btn-primary">Login</button>
         </form>
       </div>
     )

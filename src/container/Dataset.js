@@ -17,6 +17,8 @@ class Dataset extends Component {
     this.handleUnloadDatasetClick = this.handleUnloadDatasetClick.bind(this)
   }
 
+  //Action creators don't dispatch anything to the store; 
+  //instead they return action object that a 'central dispatch' uses (action.js) 
   handleLoadDatasetClick(e) {
     console.log('handleLoadDatasetClick');
     e.preventDefault()

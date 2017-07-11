@@ -9,9 +9,7 @@ const mapStateToProps = state => ({
 class Home extends React.Component {
   render() {
     return (
-      <div>
          <Dataset/>
-      </div>
     );
   }
 }
