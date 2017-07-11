@@ -11,30 +11,16 @@ import Footer from '../admin/components/Footer/';
 
 import Dashboard from '../admin/views/Dashboard/'
 import Forms from '../admin/views/Carica/Forms/'
+import IngestionForm from '../admin/views/IngestionForm/'
 
 const mapStateToProps = state => ({
   appName: state.appName
 });
 
-/*class Full extends React.Component {
-  render() {
-    return (
-      <div>
-         <h2>Full</h2>
-      </div>
-    );
-  }
-} */
-
-
-
 
 class Full extends React.Component {
   render() {
     return (
-      <body className="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-      <div className="app">
-        <Header />
         <div className="app-body">
           <Sidebar {...this.props}/>
           <main className="main">
@@ -42,16 +28,12 @@ class Full extends React.Component {
             <div className="container-fluid">
               <Switch>
                 <Route path="/admin/dashboard" name="Dashboard" component={Dashboard}/>
-                <Route path="/admin/carica/forms" name="Forms" component={Forms}/>
+                <Route path="/admin/ingestionform" name="Forms" component={IngestionForm}/>
                 <Redirect from="/admin" to="/admin/dashboard"/>
               </Switch>
             </div>
           </main>
-          <Aside />
         </div>
-        <Footer />
-      </div>
-      </body>
     );
   }
 }

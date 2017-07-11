@@ -15,6 +15,10 @@ function requestPosts(subreddit) {
 
 function receiveDataset(subreddit, json) {
   console.log('receiveDataset');
+  //This function creates an action that a reducer can handle 
+  //Action are payload of information that sends data from the application to the store
+  //Store doesn't have any other way to get data
+  //Action are not responsible for update the state (only reducers) !!!  
   return {
     type: RECEIVE_POSTS,
     subreddit,
@@ -27,6 +31,7 @@ function receiveDataset(subreddit, json) {
 
 function cleanDataset(subreddit, json) {
   console.log('cleanDataset');
+  //This function creates an action that a reducer can handle 
   return {
     type: DELETE_POSTS,
     subreddit,

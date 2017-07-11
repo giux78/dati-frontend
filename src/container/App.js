@@ -14,6 +14,7 @@ import DatasetDetail from '../components/Dataset/DatasetDetail'
 import WizardContainer from './WizardContainer'
 import SlimHeader from '../components/MegaHeader/SlimHeader'
 import {  opts,listToMegaMenu, Megamenu} from '../components/MegaHeader/megamenu'
+import { history } from '../history'; 
 
 const store = configureStore();
 
@@ -65,35 +66,18 @@ export default class App extends Component {
   render() {
     return this.state.loading === true ? <h1>Loading</h1> : (
       <Provider store={store}>
-      <BrowserRouter>
-        <div>
+      <BrowserRouter history={ history }>
+        <div data-reactroot className="app">
           {this.state.authed ?
-          <nav className="navbar navbar-default navbar-static-top">
-            <div className="container">
-              <div className="navbar-header">
-                <Link to="/dashboard" className="navbar-brand">Data Portal</Link>
-              </div>
-              <ul className="nav navbar-nav pull-right">
-                <li>
-                  <Link to="/dashboard" className="navbar-brand">Area Privata</Link> 
-                </li>
-                <li>
-                  <Link to="/ingestion-wizard" className="navbar-brand">Ingestion</Link>
-                </li>
-                <li>
-                  <Link to="/admin/dashboard" className="navbar-brand">Full</Link>
-                </li>
-                <li>
-                    <button
-                        style={{border: 'none', background: 'transparent'}}
-                        onClick={() => {
-                          logout()
-                        }}
-                        className="navbar-brand">Logout</button>
-                </li>
+            <header className="app-header navbar">
+              <a className="navbar-brand" href="#"></a>
+              <ul className="nav navbar-nav hidden-md-down">
+                <li className="nav-item px-1"><a className="nav-link" href="/admin/dashboard">Dashboard</a></li>
+                <li className="nav-item px-1"><a className="nav-link"  onClick={() => {
+                        logout()
+                      }} href="#">Logut</a></li>
               </ul>
-            </div>
-          </nav>
+            </header>
           :
           <div className="u-background-95">
           <div className="u-layout-wide u-layoutCenter">
@@ -179,19 +163,24 @@ export default class App extends Component {
             </nav>
           </div>
           } 
-          <div className="container">
-            <div className="row">
+          <div className="app-body">
               <Switch>
                 <Route path='/' exact component={Home} />
-                <Route authed={this.state.authed} path='/login' component={Login} />
+               <Route path="/login" render={() => (
+                    this.state.authed ? (
+                        <Redirect to="/admin/dashboard"/>
+                    ) : (
+                        <Login/>
+                    )
+                )}/>
                 <Route authed={this.state.authed} path='/register' component={Register} />
                 <Route path="/datasetdetail/:name" component={DatasetDetail}/>
-                <PrivateRoute authed={this.state.authed} path='/dashboard' component={HomePrivata} />
+                <PrivateRoute authed={this.state.authed} path='/dashboard' component={Full} />
                 <PrivateRoute authed={this.state.authed} path='/ingestion-wizard' component={WizardContainer} />
                 <PrivateRoute authed={this.state.authed} path='/admin/dashboard' component={Full} />
+                <PrivateRoute authed={this.state.authed} path='/admin/ingestionform' component={Full} />
                 <Route render={() => <h3>No Match</h3>} />
               </Switch>
-            </div>
           </div>
           <br/>
           <br/>
