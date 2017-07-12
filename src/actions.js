@@ -50,11 +50,15 @@ function cleanDataset(subreddit, json) {
 
 function fetchDataset(subreddit) {
   console.log('fetchDataset');
-  return dispatch => {
-    dispatch(requestPosts(subreddit))
-    return fetch(`http://localhost:9000/dati-gov/v1/ckan/searchDataset`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveDataset(subreddit, json)))
+  if(process.env.NODE_ENV=='development'){
+    return dispatch => {dispatch(receiveDataset(subreddit, null))}
+  } else {
+    return dispatch => {
+      dispatch(requestPosts(subreddit))
+      return fetch(`http://localhost:9000/dati-gov/v1/ckan/searchDataset`)
+        .then(response => response.json())
+        .then(json => dispatch(receiveDataset(subreddit, json)))
+    }
   }
  
 }
