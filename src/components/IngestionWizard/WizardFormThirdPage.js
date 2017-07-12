@@ -16,7 +16,7 @@ const renderColorSelector = ({ input, meta: { touched, error } }) => (
 const WizardFormThirdPage = props => {
   const { handleSubmit, pristine, previousPage, submitting } = props;
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="from-horizontal" onSubmit={handleSubmit}>
       <div>
         <label>Favorite Color</label>
         <Field name="favoriteColor" component={renderColorSelector} />

@@ -6,7 +6,7 @@ import renderField from './renderField'
 const WizardFormFirstPage = props => {
   const { handleSubmit } = props
   return (
-    <form className="Form Form--spaced u-padding-all-xl u-text-r-xs" onSubmit={handleSubmit}>
+    <form className="form-horizontal" onSubmit={handleSubmit}>
       <Field
         name="title"
         type="text"
