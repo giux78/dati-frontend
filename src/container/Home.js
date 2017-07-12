@@ -17,6 +17,7 @@ class Home extends React.Component {
     return (
        <div data-reactroot className="app">
           <HeaderNoAuth />
+          <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
           <div className="app-body">
           <Switch>
             <Route path='/' exact component={Dataset} />

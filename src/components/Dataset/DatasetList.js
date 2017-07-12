@@ -18,7 +18,7 @@ const DatasetList = props => {
     return datasets.map(dataset => {
         return(
             <li key={dataset.name}>
-              <Link to={'datasetdetail/' + dataset.name}><h3>{dataset.title}</h3></Link>
+              <Link to={'datasetdetail/' + dataset.name}><h3>{dataset.name}</h3></Link>
             </li>
         );
     });
