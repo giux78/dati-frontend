@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 
 const DatasetPreview = props => {
   const dataset = props.dataset;
-  var linkTo = "/datasetdetail/name:" + dataset.name;
 
   return (
     <div className="form-group">

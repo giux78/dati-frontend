@@ -6,5 +6,10 @@ import rootReducer from './reducers'
 const loggerMiddleware = createLogger()
 
 export default function configureStore(preloadedState) {
-  return createStore(rootReducer, preloadedState, compose(applyMiddleware(thunkMiddleware,loggerMiddleware), window.devToolsExtension()))
+  //devToolsExtension
+  //return createStore(rootReducer, preloadedState, compose(applyMiddleware(thunkMiddleware,loggerMiddleware), window.devToolsExtension()))
+  
+  //NO devToolsExtension
+  return createStore(rootReducer, preloadedState, applyMiddleware(thunkMiddleware,loggerMiddleware))
+
 }

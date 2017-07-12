@@ -1,17 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Dataset from './Dataset';
-import { Link, Switch, Route, Redirect } from 'react-router-dom'
-
-import Header from '../admin/components/Header/';
+import { Switch, Route, Redirect } from 'react-router-dom'
 import Sidebar from '../admin/components/Sidebar/';
 import Breadcrumb from '../admin/components/Breadcrumb/';
-import Aside from '../admin/components/Aside/';
-import Footer from '../admin/components/Footer/';
-
 import Dashboard from '../admin/views/Dashboard/'
-import Forms from '../admin/views/Carica/Forms/'
 import IngestionForm from '../admin/views/IngestionForm/'
+import DatasetDetail from '../components/Dataset/DatasetDetail'
+import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
 
 const mapStateToProps = state => ({
   appName: state.appName
@@ -21,19 +16,23 @@ const mapStateToProps = state => ({
 class Full extends React.Component {
   render() {
     return (
+      <div data-reactroot className="app">
+        <HeaderAuth />
         <div className="app-body">
-          <Sidebar {...this.props}/>
+          <Sidebar {...this.props} />
           <main className="main">
             <Breadcrumb />
             <div className="container-fluid">
               <Switch>
-                <Route path="/admin/dashboard" name="Dashboard" component={Dashboard}/>
-                <Route path="/admin/ingestionform" name="Forms" component={IngestionForm}/>
-                <Redirect from="/admin" to="/admin/dashboard"/>
+                <Route path="/admin/dashboard" name="Dashboard" component={Dashboard} />
+                <Route path="/admin/ingestionform" name="Forms" component={IngestionForm} />
+                <Route path="/admin/datasetdetail/:name" name="DatasetDetail" component={DatasetDetail} />
+                <Redirect from="/admin" to="/admin/dashboard" />
               </Switch>
             </div>
           </main>
         </div>
+      </div>
     );
   }
 }

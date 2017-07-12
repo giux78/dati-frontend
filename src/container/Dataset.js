@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
-  selectSubreddit,
-  fetchPostsIfNeeded,
-  invalidateSubreddit,
   loadDatasets,
   unloadDatasets
 } from '../actions'
@@ -34,7 +31,7 @@ class Dataset extends Component {
   }
  
   render() {
-    const { selectedSubreddit, datasets, isFetching, lastUpdated } = this.props
+    const { datasets } = this.props
     return (
       <div className="col-sm-6 col-sm-offset-3">
         <h1> Dataset </h1>
