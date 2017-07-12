@@ -6,7 +6,8 @@ import Breadcrumb from '../admin/components/Breadcrumb/';
 import Dashboard from '../admin/views/Dashboard/'
 import IngestionForm from '../admin/views/IngestionForm/'
 import DatasetDetail from '../components/Dataset/DatasetDetail'
-import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
+import  HeaderAuth from '../components/HeaderFooter/HeaderAuth';
+//import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
 
 const mapStateToProps = state => ({
   appName: state.appName
