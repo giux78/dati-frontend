@@ -9,7 +9,7 @@ const renderError = ({ meta: { touched, error } }) =>
 const WizardFormSecondPage = props => {
   const { handleSubmit, previousPage } = props;
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form-horizontal" onSubmit={handleSubmit}>
       <Field name="email" type="email" component={renderField} label="Email" />
       <div>
         <label>Sex</label>
