@@ -32,7 +32,7 @@ class Sidebar extends Component {
               <a className="nav-link nav-dropdown-toggle" href="#" onClick={this.handleClick.bind(this)}><i className="icon-puzzle"></i> Dataset</a>
               <ul className="nav-dropdown-items">
                 <li className="nav-item">
-                  <NavLink to={'/admin/ingestionform'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Carica</NavLink>
+                  <NavLink to={'/admin/ingestionwizzard'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Carica</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink to={'/components/social-buttons'} className="nav-link" activeClassName="active"><i className="icon-puzzle"></i> Monitora</NavLink>
