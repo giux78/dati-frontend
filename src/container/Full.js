@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Sidebar from '../admin/components/Sidebar/';
 import Breadcrumb from '../admin/components/Breadcrumb/';
-import Dashboard from '../admin/views/Dashboard/'
-import IngestionForm from '../admin/views/IngestionForm/'
+import Dashboard from '../admin/views/Dashboard/';
+import IngestionForm from '../admin/views/IngestionForm/';
+import IngestionWizard from '../admin/views/IngestionWizard/';
 import DatasetDetail from '../components/Dataset/DatasetDetail'
-import  HeaderAuth from '../components/HeaderFooter/HeaderAuth';
-//import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
+import HeaderAuth from '../components/HeaderFooter/HeaderAuth';
 
 const mapStateToProps = state => ({
   appName: state.appName
@@ -26,7 +26,8 @@ class Full extends React.Component {
             <div className="container-fluid">
               <Switch>
                 <Route path="/admin/dashboard" name="Dashboard" component={Dashboard} />
-                <Route path="/admin/ingestionform" name="Forms" component={IngestionForm} />
+                <Route path="/admin/ingestionform" name="IngestionForm" component={IngestionForm} />
+                <Route path="/admin/ingestionwizzard" name="IngestionWizard" component={IngestionWizard} />
                 <Route path="/admin/datasetdetail/:name" name="DatasetDetail" component={DatasetDetail} />
                 <Redirect from="/admin" to="/admin/dashboard" />
               </Switch>

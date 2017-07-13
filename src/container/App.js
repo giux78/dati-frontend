@@ -72,6 +72,7 @@ export default class App extends Component {
           <PublicRoute authed={this.state.authed} path='/datasetdetail/:name' component={Home} />
           <PrivateRoute authed={this.state.authed} path='/admin/dashboard' component={Full} />
           <PrivateRoute authed={this.state.authed} path='/admin/ingestionform' component={Full} />
+          <PrivateRoute authed={this.state.authed} path='/admin/ingestionwizzard' component={Full} />
           <PrivateRoute authed={this.state.authed} path="/admin/datasetdetail/:name" component={Full}/>
           <Route render={() => <h3>Pagina non trovata</h3>} />
         </Switch>
