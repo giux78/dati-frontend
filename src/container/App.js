@@ -8,11 +8,9 @@ import Full from './Full'
 import { firebaseAuth } from '../config/constants'
 import { Provider } from 'react-redux';
 import configureStore from '../configureStore'
-import DatasetDetail from '../components/Dataset/DatasetDetail'
-import WizardContainer from './WizardContainer'
-import { FooterNoAuth } from '../components/HeaderFooter/FooterNoAuth';
-import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
-import { HeaderNoAuth } from '../components/HeaderFooter/HeaderNoAuth';
+//import { FooterNoAuth } from '../components/HeaderFooter/FooterNoAuth';
+//import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
+//import { HeaderNoAuth } from '../components/HeaderFooter/HeaderNoAuth';
 
 const store = configureStore();
 
