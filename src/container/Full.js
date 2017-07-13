@@ -8,6 +8,7 @@ import IngestionForm from '../admin/views/IngestionForm/'
 import DatasetDetail from '../components/Dataset/DatasetDetail'
 import  HeaderAuth from '../components/HeaderFooter/HeaderAuth';
 //import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
+import Form from '../components/IngestionForm/index.js';
 
 const mapStateToProps = state => ({
   appName: state.appName
@@ -27,6 +28,7 @@ class Full extends React.Component {
               <Switch>
                 <Route path="/admin/dashboard" name="Dashboard" component={Dashboard} />
                 <Route path="/admin/ingestionform" name="Forms" component={IngestionForm} />
+                <Route path="/admin/form" name="Form" component={Form} />
                 <Route path="/admin/datasetdetail/:name" name="DatasetDetail" component={DatasetDetail} />
                 <Redirect from="/admin" to="/admin/dashboard" />
               </Switch>

@@ -8,11 +8,9 @@ import Full from './Full'
 import { firebaseAuth } from '../config/constants'
 import { Provider } from 'react-redux';
 import configureStore from '../configureStore'
-import DatasetDetail from '../components/Dataset/DatasetDetail'
-import WizardContainer from './WizardContainer'
-import { FooterNoAuth } from '../components/HeaderFooter/FooterNoAuth';
-import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
-import { HeaderNoAuth } from '../components/HeaderFooter/HeaderNoAuth';
+//import { FooterNoAuth } from '../components/HeaderFooter/FooterNoAuth';
+//import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
+//import { HeaderNoAuth } from '../components/HeaderFooter/HeaderNoAuth';
 
 const store = configureStore();
 
@@ -72,6 +70,7 @@ export default class App extends Component {
           <PublicRoute authed={this.state.authed} path='/datasetdetail/:name' component={Home} />
           <PrivateRoute authed={this.state.authed} path='/admin/dashboard' component={Full} />
           <PrivateRoute authed={this.state.authed} path='/admin/ingestionform' component={Full} />
+          <PrivateRoute authed={this.state.authed} path='/admin/form' component={Full} />
           <PrivateRoute authed={this.state.authed} path="/admin/datasetdetail/:name" component={Full}/>
           <Route render={() => <h3>Pagina non trovata</h3>} />
         </Switch>
