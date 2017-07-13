@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import IngestionFormContainer from '../../../container/IngestionFormContainer';
+import WizardContainer from '../../../container/WizardContainer';
 
 class IngestionForm extends Component {
 
   render() {
     return (
       <div className="animated fadeIn">
-        <IngestionFormContainer />
+        <WizardContainer />
       </div>
     )
   }
