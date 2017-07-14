@@ -5,6 +5,7 @@ import Sidebar from '../admin/components/Sidebar/';
 import Breadcrumb from '../admin/components/Breadcrumb/';
 import Dashboard from '../admin/views/Dashboard/'
 import IngestionForm from '../admin/views/IngestionForm/'
+import IngestionWizard from '../admin/views/IngestionWizard/';
 import DatasetDetail from '../components/Dataset/DatasetDetail'
 import  HeaderAuth  from '../components/HeaderFooter/HeaderAuth';
 //import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
@@ -27,6 +28,7 @@ class Full extends React.Component {
               <Switch>
                 <Route path="/admin/dashboard" name="Dashboard" component={Dashboard} />
                 <Route path="/admin/ingestionform" name="Forms" component={IngestionForm} />
+                <Route path="/admin/ingestionwizzard" name="Forms" component={IngestionWizard} />
                 <Route path="/admin/datasetdetail/:name" name="DatasetDetail" component={DatasetDetail} />
                 <Redirect from="/admin" to="/admin/dashboard" />
               </Switch>
