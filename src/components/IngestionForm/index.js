@@ -454,7 +454,7 @@ class FormSection extends React.Component {
   }
 }
 
-class FormSectionDataSchema extends React.Component{
+export class FormSectionDataSchema extends React.Component{
   constructor(props){
     super(props)
     this.state = {fieldsObj: {}, numFields: '', fields: Array(), dataFile: ''}
@@ -546,6 +546,8 @@ class FormSectionDataSchema extends React.Component{
           </div>
   }
 }
+
+
 
 export default NewDsForm
 
