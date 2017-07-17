@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export {getJsonCatalog}
+export {getJsonCatalog, getJsonDataschema}
 
 function getJsonCatalog(){
   var json = {}

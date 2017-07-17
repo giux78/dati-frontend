@@ -21,9 +21,9 @@ class WizardForm extends Component {
     this.setState({ page: this.state.page - 1 })
   }
 
-  handleSubmit(){
-    console.log('ale')
-  }
+  //handleSubmit(){
+  //  console.log('ale')
+  //}
 
   render() {
     const { onSubmit } = this.props
