@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Sidebar from '../admin/components/Sidebar/';
 import Breadcrumb from '../admin/components/Breadcrumb/';
+import Footer from '../admin/components/Footer/';
+import Aside from '../admin/components/Aside/';
 import Dashboard from '../admin/views/Dashboard/'
 import IngestionForm from '../admin/views/IngestionForm/'
 import IngestionWizard from '../admin/views/IngestionWizard/';
@@ -36,7 +38,9 @@ class Full extends React.Component {
               </Switch>
             </div>
           </main>
+         
         </div>
+         <Footer />
       </div>
     );
   }

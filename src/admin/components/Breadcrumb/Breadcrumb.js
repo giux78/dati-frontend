@@ -6,15 +6,16 @@ import routes from '../../routes';
 const findRouteName = url => routes[url];
 
 const getPaths = (pathname) => {
-  const paths = ['/admin'];
+  const paths = ['/'];
 
-  if (pathname === '/admin') return paths;
+  if (pathname === '/') return paths;
 
-  pathname.split('/admin').reduce((prev, curr, index) => {
+  pathname.split('/').reduce((prev, curr, index) => {
     const currPath = `${prev}/${curr}`;
     paths.push(currPath);
     return currPath;
   });
+  console.log(paths);
   return paths;
 };
 
@@ -40,6 +41,7 @@ const BreadcrumbsItem = ({ ...rest, match }) => {
 
 const Breadcrumbs = ({ ...rest, location : { pathname }, match }) => {
   const paths = getPaths(pathname);
+  const i = 0;
   const items = paths.map((path, i) => <Route key={i++} path={path} component={BreadcrumbsItem} />);
   return (
     <Breadcrumb>
@@ -50,6 +52,6 @@ const Breadcrumbs = ({ ...rest, location : { pathname }, match }) => {
 
 export default props => (
   <div>
-    <Route path="admin/:path" component={Breadcrumbs} {...props} />
+    <Route path="/:path" component={Breadcrumbs} {...props} />
   </div>
 );
