@@ -18,7 +18,9 @@ const renderError = ({ meta: { touched, error } }) =>
 const WizardFormSecondPage = props => {
   const { handleSubmit, previousPage } = props;
   return (
+    <form className="form-horizontal" onSubmit={handleSubmit}>
     <WizardDataSchema dcatap={data_dcatap} dataschema={data_dataschema} operational={data_operational} onSubmit={handleSubmit} />
+     </form>
   );
 };
 

@@ -141,7 +141,7 @@ class FormItemInputDataType extends React.Component {
   render() {
     return <div>
       <label className="col-md-3 form-control-label" htmlFor={this.props.fieldId}>{this.props.fieldName}</label>
-      <input className="form-control" id={this.props.fieldId} value={this.state.inputVal} onChange={this.handleChange}/>
+      <input className="form-control" id={this.props.fieldId} name={this.props.fieldId} value={this.state.inputVal} onChange={this.handleChange}/>
     </div>
   }
 }
@@ -511,7 +511,7 @@ export default class FormSectionDataSchema extends React.Component{
     this.state.fieldsObj = fieldsObj
   }
   render(){
-    return <form className="form-horizontal">
+    return  <div>
             <FormSection struct={this.props.struct} data="" compInfo={this.state.compInfo}/>
             <input type="hidden" id="avro_schema_datafile" />
             <input type="hidden" id="avro_schema" />
@@ -525,7 +525,7 @@ export default class FormSectionDataSchema extends React.Component{
             <div>
               <button type="submit" className="next">Next</button>
           </div>
-          </form>
+          </div>
   }
 }
 
