@@ -1,9 +1,11 @@
 import fetch from 'isomorphic-fetch'
 import page from './data/dataset'
+import { serviceurl } from './config/serviceurl.js'
 export const REQUEST_DATASETS = 'REQUEST_DATASETS'
 export const RECEIVE_DATASETS = 'RECEIVE_DATASETS'
 export const DELETE_DATASETS = 'DELETE_DATASETS'
 export const SELECT_DATASET = 'SELECT_DATASET'
+
 
 function requestDatasets(selectDataset) {
   return {
@@ -46,24 +48,26 @@ function cleanDataset(selectDataset, json) {
   }
 }
 
-function fetchDataset(selectDataset) {
+function fetchDataset(selectDataset, query) {
   console.log('fetchDataset');
+  var url = 'http://' + serviceurl.DatasetBackend.Search.host + ':' + serviceurl.DatasetBackend.Search.port + serviceurl.DatasetBackend.Search.name + '?q='+query+'&rows=20';
+  console.log(url);
   if(process.env.NODE_ENV=='development'){
     return dispatch => {dispatch(receiveDataset(selectDataset, null))}
   } else {
     return dispatch => {
       dispatch(requestDatasets(selectDataset))
-      return fetch(`http://localhost:9000/dati-gov/v1/ckan/searchDataset`)
+      return fetch(url)
         .then(response => response.json())
         .then(json => dispatch(receiveDataset(selectDataset, json)))
     }
   }
 }
 
-export function loadDatasets(selectDataset) {
+export function loadDatasets(selectDataset, query) {
   console.log('Load Dataset action');
   return (dispatch, getState) => {
-      return dispatch(fetchDataset(selectDataset))
+      return dispatch(fetchDataset(selectDataset, query))
   }
  
 }

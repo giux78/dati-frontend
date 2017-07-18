@@ -34,28 +34,4 @@ class Home extends React.Component {
   }
 }
 
-
-/*
-<div data-reactroot className="app">
-          <HeaderNoAuth />
-          <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
-          <div className="app-body">
-          <Switch>
-            <Route path='/' exact component={Dataset} />
-            <Route path="/login" component={Login} />
-            <Route path='/register' component={Register} />
-            <Route path='/datasetdetail/:name' component={DatasetDetail} />
-          </Switch>
-        </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <FooterNoAuth />
-      </div>
-*/
-
-
-//<Route path="/login" render={() => ( this.state.authed ? (<Redirect to="/admin/dashboard"/>) : (<Login/>))}/>
-
 export default connect(mapStateToProps, () => ({}))(Home);
