@@ -65,7 +65,7 @@ class Header extends Component {
           <li className="nav-item px-1"><a className="nav-link" href="/admin/dashboard">Dashboard</a></li>
           <li className="nav-item px-1"><a className="nav-link"  onClick={() => {
                 logout()
-                }} href="#">Logut</a>
+                }} href="/">Logut</a>
           </li>
         </ul>
         <ul className="nav navbar-nav ml-auto">
@@ -86,7 +86,7 @@ class Header extends Component {
                 <DropdownItem divider />
                 <DropdownItem> <a className="nav-link"  onClick={() => {
                 logout()
-                }} href="#"><i className="fa fa-lock"></i> Logut</a></DropdownItem>
+                }} href="/"><i className="fa fa-lock"></i> Logut</a></DropdownItem>
 
               </DropdownMenu>
             </Dropdown>

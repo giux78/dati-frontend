@@ -1,19 +1,18 @@
 import fetch from 'isomorphic-fetch'
 import page from './data/dataset'
-export const REQUEST_POSTS = 'REQUEST_POSTS'
-export const DELETE_POSTS = 'DELETE_POSTS'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
-export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
+export const REQUEST_DATASETS = 'REQUEST_DATASETS'
+export const RECEIVE_DATASETS = 'RECEIVE_DATASETS'
+export const DELETE_DATASETS = 'DELETE_DATASETS'
+export const SELECT_DATASET = 'SELECT_DATASET'
 
-function requestPosts(subreddit) {
+function requestDatasets(selectDataset) {
   return {
-    type: REQUEST_POSTS,
-    subreddit
+    type: REQUEST_DATASETS,
+    selectDataset
   }
 }
 
-function receiveDataset(subreddit, json) {
+function receiveDataset(selectDataset, json) {
   console.log('receiveDataset');
   //This function creates an action that a reducer can handle 
   //Action are payload of information that sends data from the application to the store
@@ -22,58 +21,56 @@ function receiveDataset(subreddit, json) {
   console.log('MODE: ' + process.env.NODE_ENV) 
   if(process.env.NODE_ENV=='development')
     return {
-      type: RECEIVE_POSTS,
-      subreddit,
+      type: RECEIVE_DATASETS,
+      selectDataset,
       datasets: page,
       receivedAt: Date.now()
   }
   else  
   return {
-      type: RECEIVE_POSTS,
-      subreddit,
+      type: RECEIVE_DATASETS,
+      selectDataset,
       datasets: json,
       receivedAt: Date.now()
   }
 }
 
-
-function cleanDataset(subreddit, json) {
+function cleanDataset(selectDataset, json) {
   console.log('cleanDataset');
   //This function creates an action that a reducer can handle 
   return {
-    type: DELETE_POSTS,
-    subreddit,
+    type: DELETE_DATASETS,
+    selectDataset,
     datasets: null,
     receivedAt: Date.now()
   }
 }
 
-function fetchDataset(subreddit) {
+function fetchDataset(selectDataset) {
   console.log('fetchDataset');
   if(process.env.NODE_ENV=='development'){
-    return dispatch => {dispatch(receiveDataset(subreddit, null))}
+    return dispatch => {dispatch(receiveDataset(selectDataset, null))}
   } else {
     return dispatch => {
-      dispatch(requestPosts(subreddit))
+      dispatch(requestDatasets(selectDataset))
       return fetch(`http://localhost:9000/dati-gov/v1/ckan/searchDataset`)
         .then(response => response.json())
-        .then(json => dispatch(receiveDataset(subreddit, json)))
+        .then(json => dispatch(receiveDataset(selectDataset, json)))
     }
   }
- 
 }
 
-export function loadDatasets(subreddit) {
+export function loadDatasets(selectDataset) {
   console.log('Load Dataset action');
   return (dispatch, getState) => {
-      return dispatch(fetchDataset(subreddit))
+      return dispatch(fetchDataset(selectDataset))
   }
  
 }
 
-export function unloadDatasets(subreddit) {
+export function unloadDatasets(selectDataset) {
   console.log('Unload Dataset action');
   return (dispatch, getState) => {
-      return dispatch(cleanDataset(subreddit))
+      return dispatch(cleanDataset(selectDataset))
   }
 }

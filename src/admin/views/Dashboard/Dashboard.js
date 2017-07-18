@@ -6,7 +6,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <Dataset />
+        <h1>Dashboard</h1>
       </div>
     )
   }
