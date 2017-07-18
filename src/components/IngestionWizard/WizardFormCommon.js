@@ -404,7 +404,7 @@ class FormSectionItem extends React.Component{
         break;
     }
   }
-//
+
   render() {
     return <div className="form-group" key={this.props.fieldId}>
             {this.getItem(this.props.struct, this.props.compInfo)}

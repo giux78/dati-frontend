@@ -16,7 +16,6 @@ const data_operational = DataInputForm.getOperational()
 class WizardDataSchema extends React.Component {
   render () {
     return <FormSectionDataSchema struct={this.props.dataschema} data="" />
- 
   }
 }
 
