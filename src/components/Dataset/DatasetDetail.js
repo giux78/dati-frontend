@@ -17,7 +17,6 @@ class DatasetDetail extends Component {
   } 
  
   componentDidMount(){    	 
-
       console.log('componentDidMount');
       console.log('fetch dataset with name: ' + this.props.match.params.name);
       console.log('MODE: ' + process.env.NODE_ENV) 

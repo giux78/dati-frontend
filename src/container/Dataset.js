@@ -17,10 +17,12 @@ class Dataset extends Component {
   //Action creators don't dispatch anything to the store; 
   //instead they return action object that a 'central dispatch' uses (action.js) 
   handleLoadDatasetClick(e) {
+    var query = this.refs.esplora;
     console.log('handleLoadDatasetClick');
+    console.log('query: ' + query.value);
     e.preventDefault()
     const { dispatch, selectDataset } = this.props
-    dispatch(loadDatasets(selectDataset))
+    dispatch(loadDatasets(selectDataset, query.value))
   }
 
   handleUnloadDatasetClick(e) {
@@ -56,7 +58,7 @@ class Dataset extends Component {
               <div className="Form-field Form-field--withPlaceholder Grid u-background-white u-color-grey-30 u-borderRadius-s u-borderShadow-xxl">
                 <button className="Grid-cell u-sizeFit Icon-search u-color-grey-40 u-text-r-m u-padding-all-s u-textWeight-400">
                 </button>
-                <input className="Form-input Form-input--ultraLean Grid-cell u-sizeFill u-text-r-s u-color-black u-text-r-xs u-borderHideFocus " required="" id="esplora" name="cerca" />
+                <input className="Form-input Form-input--ultraLean Grid-cell u-sizeFill u-text-r-s u-color-black u-text-r-xs u-borderHideFocus " required="" id="esplora" name="esplora" ref="esplora"/>
                 <label className="Form-label u-color-grey-50 u-padding-left-xxl" htmlFor="esplora"><span className="u-hidden u-md-inline u-lg-inline">
                   cerca</span></label>
                 <button type="submit" className="Grid-cell u-sizeFit u-background-60 u-color-white u-textWeight-600 u-padding-r-left u-padding-r-right u-textUppercase u-borderRadius-s" onClick={this.handleLoadDatasetClick}>Esplora</button>
@@ -82,27 +84,10 @@ class Dataset extends Component {
     )
   }
 }
-/*
-      <div className="col-sm-6 col-sm-offset-3">
-        <h1> Dataset </h1>
-        <form>
-          <div className="form-group">
-            <label>Cerca tra i dati della pubblica amministrazione.</label>
-            <input className="form-control" placeholder="Input"/>
-          </div>
-          <span>
-            <button type="submit" onClick={this.handleLoadDatasetClick} className="btn btn-primary">Cerca</button>
-          </span>
-          <span>
-            <button type="submit" onClick={this.handleUnloadDatasetClick} className="btn btn-primary">Pulisci</button>
-          </span>
-        </form>
-        <DatasetList datasets={datasets}/>
-      </div>
-*/
 
 Dataset.propTypes = {
   selectDataset: PropTypes.string,
+  query: PropTypes.string,
   datasets: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
   lastUpdated: PropTypes.number,
@@ -112,7 +97,7 @@ Dataset.propTypes = {
 function mapStateToProps(state) {
   const { selectDataset, datasetReducer } = state
   const { isFetching, lastUpdated, items: datasets } = datasetReducer[selectDataset] 
-     || {isFetching: true, items: [] }
+     || { isFetching: true, items: [] }
 
   return {
     selectDataset,
