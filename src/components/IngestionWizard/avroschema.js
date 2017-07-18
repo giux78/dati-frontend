@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Papa from 'papaparse';
 
-export {processInputFile, getFlatSchema}
+export {processInputFile, getFlatSchema, processInputFileMetadata}
 
 
 const avro = require('avsc');
@@ -19,6 +19,14 @@ function finalizeOps(json){
   //call the callback function
 }
 
+function finalizeOpsMeta(json){
+  //this function is needed to start all operations after the schema is ready. Think of using callback function
+  //console.log(json);
+  //console.log(JSON.stringify(json));
+  var avroSchema = getAvroSchema(json);
+  return getFlatSchema(avroSchema);
+  //call the callback function
+}
 
 function getFlatSchema(json){
   var fieldList = {"names": [], "props": []};
@@ -68,6 +76,34 @@ function getAvroSchema(json){
   //console.log(schema);
   //console.log(JSON.stringify(schema));
   return schema;
+}
+
+
+function processInputFileMetadata(callback) {
+  var file = document.getElementById('ds_datafile').files[0];
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var text = reader.result;
+    try {
+      var json = JSON.parse(text);
+      alert(JSON.stringify(json));
+      callback(finalizeOpsMeta(json))
+    } catch (err) {
+      //alert("no");
+      //console.log(text);
+      var objCsv = Papa.parse(text, { header: true, quoteChar: '"', dynamicTyping: true,
+        error: function(error, file) {alert(error)},
+        complete: function(results, file) {
+          alert(JSON.stringify(results.data));
+          callback(finalizeOpsMeta(results.data))
+        }
+      });
+    }
+
+  }
+
+  reader.readAsText(file);
 }
 
 

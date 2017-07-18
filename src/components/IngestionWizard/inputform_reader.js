@@ -85,9 +85,9 @@ function getJsonDcatap(){
 
 function getJsonDataschema(){
 
-  var namespace = document.querySelector('[id="ds_namespace"]')
-  var name = document.querySelector('[id="ds_name"]')
-  var aliases = document.querySelector('[id="ds_aliases"]')
+  //var namespace = document.querySelector('[id="ds_namespace"]')
+  //var name = document.querySelector('[id="ds_name"]')
+  // var aliases = document.querySelector('[id="ds_aliases"]')
   var fields_name = document.querySelectorAll('[id^="ds_fields-name"]')
   var fields_type = document.querySelectorAll('[id^="ds_fields-type"]')
   var fields_metadata_desc = document.querySelectorAll('[id^="ds_fields-metadata_desc"]')
@@ -128,9 +128,9 @@ function getJsonDataschema(){
   }
 
   json['avro'] = {
-    namespace: namespace.value,
-    name: name.value,
-    aliases: aliases.value,
+    //namespace: namespace.value,
+    //name: name.value,
+    //aliases: aliases.value,
   //  ['type']: "record",
     fields: avroFields
   }

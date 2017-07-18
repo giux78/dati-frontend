@@ -65,6 +65,9 @@ class Sidebar extends Component {
             <li className="nav-item">
               <NavLink to={'/charts'} className="nav-link" onClick={this.handleClick.bind(this)} activeClassName="active"><i className="icon-pie-chart"></i> Grafici</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink to={'http://superset_link'} className="nav-link" onClick={this.handleClick.bind(this)} activeClassName="active"><i className="icon-pie-chart"></i> Busness Intelligence</NavLink>
+            </li>
           </ul>
         </nav>
       </div>
