@@ -15,7 +15,7 @@ const data_operational = DataInputForm.getOperational()
 class NewDsForm extends React.Component {
   render () {
     return <div className="container">
-            <form className="Form Form--spaced u-padding-all-xl u-text-r-xs">
+            <form className="form-horizontal">
               <FormSection struct={this.props.dcatap} data="" />
               <FormSectionDataSchema struct={this.props.dataschema} data="" />
               <FormSection struct={this.props.operational} data="" />
@@ -161,8 +161,8 @@ class FormItemInputDataType extends React.Component {
 
   render() {
     return <div>
-      <label className="Form-label" htmlFor={this.props.fieldId}>{this.props.fieldName}</label>
-      <input className="Form-input u-text-r-s u-borderRadius-m" id={this.props.fieldId} value={this.state.inputVal} onChange={this.handleChange}/>
+      <label className="col-md-3 form-control-label" htmlFor={this.props.fieldId}>{this.props.fieldName}</label>
+      <input className="form-control" id={this.props.fieldId} value={this.state.inputVal} onChange={this.handleChange}/>
     </div>
   }
 }
@@ -260,21 +260,21 @@ class FormItemFieldMetadata extends React.Component {
     return <div>
             <h4>Field Metadata</h4>
             <label htmlFor={this.props.fieldId + "_desc_" + this.props.fieldNum}> Descrizione </label>
-            <textarea className="Form-input u-text-r-s u-borderRadius-m" id={this.props.fieldId + "_desc_" + this.props.fieldNum} ></textarea>
+            <textarea className="form-control" id={this.props.fieldId + "_desc_" + this.props.fieldNum} ></textarea>
             <label htmlFor={this.props.fieldId + "_required_" + this.props.fieldNum}> Obbligatorio? </label>
-            <FormItemSelectYesNo className="Form-input u-text-r-s u-borderRadius-m" id={this.props.fieldId + "_required_" + this.props.fieldNum} />
+            <FormItemSelectYesNo className="form-control" id={this.props.fieldId + "_required_" + this.props.fieldNum} />
             <label htmlFor={this.props.fieldId + "_fieldtype_" + this.props.fieldNum}> Tipo di Campo </label>
-            <FormItemSelectFieldType className="Form-input u-text-r-s u-borderRadius-m" id={this.props.fieldId + "_fieldtype_" + this.props.fieldNum} />
+            <FormItemSelectFieldType className="form-control" id={this.props.fieldId + "_fieldtype_" + this.props.fieldNum} />
             <label htmlFor={this.props.fieldId + "_cat_" + this.props.fieldNum}> Categoria </label>
-            <input className="Form-input u-text-r-s u-borderRadius-m" id={this.props.fieldId + "_cat_" + this.props.fieldNum} />
+            <input className="form-control" id={this.props.fieldId + "_cat_" + this.props.fieldNum} />
             <label htmlFor={this.props.fieldId + "_tag_" + this.props.fieldNum}> Tags </label>
-            <input className="Form-input u-text-r-s u-borderRadius-m" id={this.props.fieldId + "_tag_" + this.props.fieldNum} />
+            <input className="form-control" id={this.props.fieldId + "_tag_" + this.props.fieldNum} />
             <label htmlFor={this.props.fieldId + "_sem-subj_" + this.props.fieldNum}> Semantics - Subject URI </label>
-            <input className="Form-input u-text-r-s u-borderRadius-m" id={this.props.fieldId + "_sem-subj_" + this.props.fieldNum} />
+            <input className="form-control" id={this.props.fieldId + "_sem-subj_" + this.props.fieldNum} />
             <label htmlFor={this.props.fieldId + "_sem-context_" + this.props.fieldNum}> Semantics - Context URIs </label>
-            <input className="Form-input u-text-r-s u-borderRadius-m" id={this.props.fieldId + "_sem-context_" + this.props.fieldNum} />
+            <input className="form-control" id={this.props.fieldId + "_sem-context_" + this.props.fieldNum} />
             <label htmlFor={this.props.fieldId + "_constr_" + this.props.fieldNum}> Restrizioni & Regole </label>
-            <FormItemSelectConstr className="Form-input u-text-r-s u-borderRadius-m" id={this.props.fieldId + "_constr"} fieldNum={this.props.fieldNum}/>
+            <FormItemSelectConstr className="form-control" id={this.props.fieldId + "_constr"} fieldNum={this.props.fieldNum}/>
 
           </div>
   }
@@ -296,8 +296,8 @@ class FormItemMultiInput extends React.Component{
     const InputType = this.props.typeInput
     const SelType = this.props.typeSel
     return <div>
-            <label className="Form-label" htmlFor={info.fieldId + "_value"}> {info.fieldName} </label>
-            <InputType className="Form-input u-text-r-s u-borderRadius-m" id={info.fieldId + "_value"} />
+            <label className="col-md-3 form-control-label" htmlFor={info.fieldId + "_value"}> {info.fieldName} </label>
+            <InputType className="form-control" id={info.fieldId + "_value"} />
             <div id={"inputMultiLang_" + info.fieldId}>
               {this.state.inputs.map(input =>
                 <div key={info.fieldId + "_" + this.state.selects["lang_" + info.fieldId + input]}>
@@ -333,37 +333,47 @@ class FormSectionItem extends React.Component{
     //console.log(JSON.stringify(info))
     switch(info.fieldType) {
       case "input":
-        return <div className="Form-field">
-          <label className="Form-label is-required" htmlFor={info.fieldId}>{info.fieldName}</label>
-          <input className="Form-input u-text-r-s u-borderRadius-m" id={info.fieldId} />
+        return <div className="form-group row">
+          <label className="col-md-3 form-control-label" htmlFor={info.fieldId}>{info.fieldName}</label>
+          <div className="col-md-9">
+          <input className="form-control" id={info.fieldId} />
+          </div>
         </div>
         break;
 
       case "text":
-        return <div className="Form-field">
-          <label className="Form-label is-required" htmlFor={info.fieldId}>{info.fieldName}</label>
-          <textarea className="Form-input u-text-r-s u-borderRadius-m" id={info.fieldId}></textarea>
+        return <div className="form-group row">
+          <label className="col-md-3 form-control-label" htmlFor={info.fieldId}>{info.fieldName}</label>
+          <div className="col-md-9">
+            <textarea rows="5" className="form-control" id={info.fieldId}></textarea>
+           </div> 
         </div>
         break;
 
       case "selectTheme":
-        return <div className="Form-field">
-                <label className="Form-label is-required" htmlFor={info.fieldId}>{info.fieldName}</label>
-                <FormItemSelectTheme className="Form-input u-text-r-s u-borderRadius-m" struct={info} />
+        return <div className="form-group row">
+                    <label className="col-md-3 form-control-label" htmlFor={info.fieldId}>{info.fieldName}</label>
+                <div className="col-md-9">
+                  <FormItemSelectTheme className="form-control" struct={info} ></FormItemSelectTheme>
+                </div>
               </div>
         break;
 
       case "selectCategory":
-        return <div className="Form-field">
-                <label className="Form-label" htmlFor={info.fieldId}>{info.fieldName}</label>
-                <FormItemSelectCategory className="Form-input u-text-r-s u-borderRadius-m" struct={info} typeInput={FormItemInput} typeSel={FormItemSelectLang}/>
+        return <div className="form-group row">
+                <label className="col-md-3 form-control-label" htmlFor={info.fieldId}>{info.fieldName}</label>
+                <div className="col-md-9">
+                  <FormItemSelectCategory className="form-control" struct={info} typeInput={FormItemInput} typeSel={FormItemSelectLang}/>
+                 </div>
               </div>
         break;
 
       case "selectLang":
-        return <div className="Form-field">
-                <label className="Form-label" htmlFor={info.fieldId}>{info.fieldName}</label>
-                <FormItemSelectLang className="Form-input u-text-r-s u-borderRadius-m" struct={info}/>
+        return <div className="form-group row">
+                <label className="col-md-3 form-control-label" htmlFor={info.fieldId}>{info.fieldName}</label>
+                <div className="col-md-9">
+                <FormItemSelectLang className="form-control" struct={info}/>
+                </div>
               </div>
         break;
 
@@ -396,9 +406,11 @@ class FormSectionItem extends React.Component{
         break;
 
         case "selectYesNo":
-          return <div>
-                  <label className="Form-label" htmlFor={info.fieldId}>{info.fieldName}</label>
-                  <FormItemSelectYesNo className="Form-input u-text-r-s u-borderRadius-m" id={info.fieldId}/>
+          return <div className="form-group row">
+                  <label className="col-md-3 form-control-label" htmlFor={info.fieldId}>{info.fieldName}</label>
+                  <div className="col-md-9">
+                     <FormItemSelectYesNo className="form-control" id={info.fieldId}/>
+                  </div>
                 </div>
           break;
 
@@ -442,7 +454,7 @@ class FormSection extends React.Component {
   }
 }
 
-class FormSectionDataSchema extends React.Component{
+export class FormSectionDataSchema extends React.Component{
   constructor(props){
     super(props)
     this.state = {fieldsObj: {}, numFields: '', fields: Array(), dataFile: ''}
@@ -534,6 +546,8 @@ class FormSectionDataSchema extends React.Component{
           </div>
   }
 }
+
+
 
 export default NewDsForm
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import WizardForm from '../components/IngestionWizard/WizardForm'
-
+import {getJsonDataschema} from '../components/IngestionWizard/inputform_reader.js'
 
 const showResults = values =>
   new Promise(resolve => {

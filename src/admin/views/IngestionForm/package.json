@@ -1,0 +1,6 @@
+{
+  "name": "IngestionForm",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./IngestionForm.js"
+}

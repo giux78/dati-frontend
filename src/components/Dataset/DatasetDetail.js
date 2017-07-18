@@ -17,16 +17,19 @@ class DatasetDetail extends Component {
   } 
  
   componentDidMount(){    	 
-    /*fetch(`${process.env.ENDPOINT}/posts/${this.props.params.post}`) 
-      .then(res => res.json()) 	 
-      .then(post => this.setState({post})); */
       console.log('componentDidMount');
-      console.log('fetch dataset with name: ');
-      console.log({});
-      this.setState({           
-        dataset: det,            
-      }               
-    )     
+      console.log('fetch dataset with name: ' + this.props.match.params.name);
+      console.log('MODE: ' + process.env.NODE_ENV) 
+      if (process.env.NODE_ENV == 'development') {
+        this.setState({
+          dataset: det,
+        })
+      }
+      else {
+        fetch('http://localhost:9000/dati-gov/v1/ckan/datasets/${this.props.params.post}')
+          .then(res => res.json())
+          .then(dataset => this.setState({ dataset }));
+      }
   } 
  
   render() { 

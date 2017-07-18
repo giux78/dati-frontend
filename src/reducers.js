@@ -1,80 +1,65 @@
 import { combineReducers } from 'redux'
 import { reducer as reduxFormReducer } from 'redux-form';
 import {
-  SELECT_SUBREDDIT,
-  INVALIDATE_SUBREDDIT,
-  REQUEST_POSTS,
-  RECEIVE_POSTS,
-  DELETE_POSTS
+  REQUEST_DATASETS,
+  RECEIVE_DATASETS,
+  DELETE_DATASETS,
+  SELECT_DATASET
 } from './actions'
 
-function selectedSubreddit(state = 'reactjs', action) {
+//The reducer is just an action that take two parameter state and action
+//The reducer that handle the action will make a copy of the state,
+//modify it with the data from the action and then  returns the new state
+function selectedDataset(state = 'selectDataset', action) {
   switch (action.type) {
-    case SELECT_SUBREDDIT:
-      return action.subreddit
+    case SELECT_DATASET:
+      return action.selectDataset
     default:
       return state
   }
 }
 
-function datasets(
-  state = {
-    isFetching: false,
-    didInvalidate: false,
-    items: []
-  },
-  action
+//Object.assign({}, state, .. create a new copy of the state
+function datasets( state = { isFetching: false, didInvalidate: false, items: [] },action
 ) {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
-      return Object.assign({}, state, {
-        didInvalidate: true
-      })
-    case REQUEST_POSTS:
+    case REQUEST_DATASETS:
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false
       })
-    case RECEIVE_POSTS:
+    case RECEIVE_DATASETS:
       return Object.assign({}, state, {
+        selectDataset: action.selectDataset,
         isFetching: false,
         didInvalidate: false,
         items: action.datasets,
         lastUpdated: action.receivedAt
       })
-    case DELETE_POSTS:
-      return Object.assign({}, state, {
-        isFetching: false,
-        didInvalidate: false,
-        items: null,
-        lastUpdated: action.receivedAt
-      })
     default:
       return state
   }
 }
 
-function postsBySubreddit(state = {}, action) {
+function datasetReducer(state = {}, action) {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
-    case RECEIVE_POSTS:
-    case DELETE_POSTS:
+    case DELETE_DATASETS:
+    case RECEIVE_DATASETS:
+    case REQUEST_DATASETS:
       return Object.assign({}, state, {
-        [action.subreddit]: datasets(state[action.subreddit], action)
-      })
-    case REQUEST_POSTS:
-      return Object.assign({}, state, {
-        [action.subreddit]: datasets(state[action.subreddit], action)
+        [action.selectDataset]: datasets(state[action.selectDataset], action)
       })
     default:
       return state
   }
 }
 
+//will mount each reducer with the corresponding key (datasetReducer)
+//but you can change it by naming the key differently (form: reduxFormReducer)
 const rootReducer = combineReducers({
   form: reduxFormReducer,
-  postsBySubreddit,
-  selectedSubreddit
+  datasetReducer,
+  selectedDataset
 })
 
 export default rootReducer
