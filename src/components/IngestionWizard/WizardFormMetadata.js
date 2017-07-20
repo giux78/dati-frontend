@@ -28,7 +28,7 @@ const renderField = ({ input, label, type, value = '', meta: { touched, error } 
     </div>
   </div>
 
-const renderHobbies = ({ fields, meta: { error } }) =>
+/*const renderHobbies = ({ fields, meta: { error } }) =>
   <ul>
     <li>
       <button type="button" onClick={() => fields.push()}>
@@ -54,10 +54,10 @@ const renderHobbies = ({ fields, meta: { error } }) =>
       <li className="error">
         {error}
       </li>}
-  </ul>
+  </ul> */
 
 
-
+/*
 const renderMembers = ({ fields, meta: { error, submitFailed } }) =>
   <ul>
     <li>
@@ -92,19 +92,29 @@ const renderMembers = ({ fields, meta: { error, submitFailed } }) =>
           component={renderField}
           label="Tipo"
         />
-        <FieldArray name={`${member}.hobbies`} component={renderHobbies} />
+       <FieldArray name={`${member}.hobbies`} component={renderHobbies} />
       </li>
     )}
-  </ul>
+  </ul> */
 
 
 const addMetadataFromFile = ({ fields, meta: { error, submitFailed } }) =>   
  <ul>
+       <li>
+      <button type="button" onClick={() => fields.push({})}>
+        Add Member
+      </button>
+      {submitFailed &&
+        error &&
+        <span>
+          {error}
+        </span>}
+    </li>
      <li>
         <label htmlFor="ds_datafile">Add File</label>
             <input className="form-control" type="file" id="ds_datafile" accept=".csv, .txt, .json, .avro" />
             <input type="button" value="Calc Schema" onClick={() => calcDataFields(fields)}/>
-        </li> 
+        </li>
     {fields.map((test, index) =>
       <li key={index}>
         <button
@@ -145,7 +155,19 @@ const WizardFormMetadata = props => {
         component={renderField}
         label="namespace"
       />
-      <FieldArray name="members" component={renderMembers} />
+      <Field
+        name="name"
+        type="text"
+        component={renderField}
+        label="name"
+      />
+      <Field
+        name="aliases"
+        type="text"
+        component={renderField}
+        label="aliases"
+      />
+      
       <FieldArray name="tests" component={addMetadataFromFile}/>
       <div>
         <button type="submit" className="next">Next</button>
@@ -160,6 +182,7 @@ const WizardFormMetadata = props => {
     </form>
   )
 }
+// <FieldArray name="members" component={renderMembers} />
 
 export default reduxForm({
   form: 'wizard', //                 <------ same form name

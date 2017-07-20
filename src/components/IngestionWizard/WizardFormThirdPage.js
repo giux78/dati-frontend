@@ -3,14 +3,14 @@ import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 
 
-const colors = ['Yes'];
-const tipo_lettura = ['Time Series']
+const isStd = ['true'];
+const tipo_lettura = ['ts']
 
 const renderTipoLettura = ({ input, meta: { touched, error } }) => (
   <div>
     <select {...input}>
-      <option value="Ultimo Aggiornamento">Ultimo Aggiornamento</option>
-      {tipo_lettura.map(val => <option value={val} key={val}>{val}</option>)}
+      <option value="update" selected key='update'>Ultimo Aggiornamento</option>
+      {tipo_lettura.map(val => <option value={val} key={val}>Time Series</option>)}
     </select>
     {touched && error && <span>{error}</span>}
   </div>
@@ -19,8 +19,8 @@ const renderTipoLettura = ({ input, meta: { touched, error } }) => (
 const renderColorSelector = ({ input, meta: { touched, error } }) => (
   <div>
     <select {...input}>
-      <option value="No">No</option>
-      {colors.map(val => <option value={val} key={val}>{val}</option>)}
+      <option value='false' selected key='false'>No</option>
+      {isStd.map(val => <option value={val} key={val}>Yes</option>)}
     </select>
     {touched && error && <span>{error}</span>}
   </div>
@@ -49,7 +49,7 @@ const WizardFormThirdPage = props => {
         </div>
         <div>
         <label>Definisce uno standard?</label>
-        <Field name="standard" component={renderColorSelector} />
+        <Field name="is_std" component={renderColorSelector} />
       </div>
         <div>
         <label>Uri Standard Associato</label>
@@ -58,9 +58,9 @@ const WizardFormThirdPage = props => {
         </div>
       </div>
       </div>
-              <div>
+      <div>
         <label>Tipo Lettura del dataset</label>
-        <Field name="standard" component={renderTipoLettura} />
+        <Field name="read_type"  component={renderTipoLettura} />
       </div>
       <div>
         <button type="button" className="previous" onClick={previousPage}>
