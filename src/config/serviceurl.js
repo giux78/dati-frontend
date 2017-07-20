@@ -4,7 +4,8 @@ export const serviceurl = {
     "Search": {
       "host": "localhost",
       "port": 9000,
-      "name": "/dati-gov/v1/ckan/searchDataset"
+      "nameSearch": "/dati-gov/v1/ckan/searchDataset",
+      "nameDetail": "/dati-gov/v1/ckan/datasets/"
     }
   }
 }
