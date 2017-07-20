@@ -1,36 +1,48 @@
-import React from 'react';
 import { Link } from 'react-router-dom'
+import React, { Component } from 'react'
+import {
+  datasetDetail
+} from '../../actions'
 
-const DatasetList = props => {
-  if (!props.datasets) {
-    return (
-      <div></div>
-    );
+class DatasetList extends Component {
+  constructor(props) {
+    super(props)
+    this.handleLoadDatasetDetailClick = this.handleLoadDatasetDetailClick.bind(this)
   }
 
-  if (props.datasets.length === 0) {
-    return (
-      <div></div>
-    );
+  handleLoadDatasetDetailClick(e){
+    console.log('handleLoadDatasetDetailClick');
+    const { dispatch, selectDataset } = this.props
+    dispatch(datasetDetail(selectDataset, 'test-dcatapit-api-1'))
   }
 
-  function renderDataset(datasets){
+
+  renderDataset(datasets){
     return datasets.map(dataset => {
         return(
             <li key={dataset.name}>
-              <Link to={'datasetdetail/' + dataset.name}><h3>{dataset.name}</h3></Link>
+              <form>
+              <div>
+                <h3>{dataset.name}</h3>
+                <button type="submit" onClick={this.handleLoadDatasetDetailClick}>Dettaglio</button>
+              </div>
+            </form>
             </li>
         );
     });
   }
 
-  return (
-    <div>
-      <ul className="list-group">
-        {renderDataset(props.datasets)}
-      </ul>
-    </div>
-  );
-};
+ render() {
+    const { datasets} = this.props
+    return (
+      <div>
+          <ul className="list-group">
+            {this.renderDataset(datasets)}
+          </ul>
+        </div>
+    
+    )
+  }
+}
 
 export default DatasetList;
