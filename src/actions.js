@@ -75,8 +75,12 @@ function cleanDataset(json) {
 
 function fetchDataset(query) {
   console.log('fetchDataset');
-  var url = 'http://' + serviceurl.DatasetBackend.Search.host + ':' + serviceurl.DatasetBackend.Search.port + serviceurl.DatasetBackend.Search.nameSearch + '?q='+query+'&rows=20';
-  console.log(url);
+  var queryurl='';
+  if(query)
+    queryurl='&q='+query;
+  console.log('queryurl: ' + queryurl);
+  var url = 'http://' + serviceurl.DatasetBackend.Search.host + ':' + serviceurl.DatasetBackend.Search.port + serviceurl.DatasetBackend.Search.nameSearch + '?rows=20' + queryurl;
+  console.log('url: ' + url);
   if(process.env.NODE_ENV=='development'){
     return dispatch => {dispatch(receiveDataset(null))}
   } else {
@@ -92,7 +96,7 @@ function fetchDataset(query) {
 function fetchDatasetDetail(datasetname) {
   console.log('fetchDatasetDetail');
   //http://localhost:9000/dati-gov/v1/ckan/datasets/${this.props.params.post
-  var url = 'http://' + serviceurl.DatasetBackend.Search.host + ':' + serviceurl.DatasetBackend.Search.port + serviceurl.DatasetBackend.Search.nameDetail + '$' + datasetname;
+  var url = 'http://' + serviceurl.DatasetBackend.Search.host + ':' + serviceurl.DatasetBackend.Search.port + serviceurl.DatasetBackend.Search.nameDetail + datasetname;
   console.log(url);
   if(process.env.NODE_ENV=='development'){
     return dispatch => {dispatch(receiveDatasetDetail(null))}

@@ -5,7 +5,6 @@ import {
   loadDatasets,
   unloadDatasets
 } from '../actions'
-import DatasetList from '../components/Dataset/DatasetList'
 
 class PrivateDataset extends Component {
   constructor(props) {
@@ -47,7 +46,6 @@ class PrivateDataset extends Component {
             <button type="submit" onClick={this.handleUnloadDatasetClick} className="btn btn-primary">Pulisci</button>
           </span>
         </form>
-        <DatasetList datasets={datasets}/>
       </div>
     )
   }
