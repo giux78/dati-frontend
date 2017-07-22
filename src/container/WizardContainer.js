@@ -8,6 +8,7 @@ const transformer = values => {
   var dataschema = 'dataschema'
   var avro = 'avro'
   var operational = 'operational'
+  var dcatapit = 'dcatapit'
   data[dataschema] = {}
   data[dataschema][avro] = {}
   data[dataschema][avro]['namespace'] = values.namespace
@@ -35,6 +36,19 @@ const transformer = values => {
   if (!values.read_type){
       data[operational]['read_type'] = 'update'
   }
+  data[dcatapit] = {}
+  data[dcatapit]['identifier'] = values.identifier
+  data[dcatapit]['alternate_identifier'] = values.identifier
+  data[dcatapit]['notes'] = values.notes
+  data[dcatapit]['theme'] = values.theme
+  data[dcatapit]['publisher_editor'] = values.publisher_name
+  data[dcatapit]['publisher_identifier'] = values.publisher_name
+  data[dcatapit]['modified'] = values.creation_date
+  data[dcatapit]['holder_name'] = values.holder_name
+  data[dcatapit]['holder_identifier'] = values.holder_identifier
+  data[dcatapit]['license_title'] = values.license_title
+  data[dcatapit]['license_identifier'] = values.license_identifier
+  data[dcatapit]['owner_org'] = values.owner_org
   console.log(JSON.stringify(values))
   console.log(JSON.stringify(data))
   return data
