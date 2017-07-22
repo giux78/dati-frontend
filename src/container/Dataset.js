@@ -6,9 +6,8 @@ import {
   unloadDatasets,
   datasetDetail
 } from '../actions'
-import DatasetList from '../components/Dataset/DatasetList'
-import DatasetDetail from '../components/Dataset/DatasetDetail'
-import DatasetInfo from '../components/Dataset/DatasetInfo'
+import Autocomplete from '../components/Dataset/Autocomplete.js'
+
 
 class Dataset extends Component {
   constructor(props) {
@@ -21,12 +20,12 @@ class Dataset extends Component {
   //Action creators don't dispatch anything to the store; 
   //instead they return action object that a 'central dispatch' uses (action.js) 
   handleLoadDatasetClick(e) {
-    var query = this.refs.esplora;
     console.log('handleLoadDatasetClick');
-    console.log('query: ' + query.value);
+    console.log('querystring: ' + this.refs.auto.state.value );
+    var query = this.refs.auto.state.value;
     e.preventDefault()
     const { dispatch, selectDataset } = this.props
-    dispatch(loadDatasets(query.value))
+    dispatch(loadDatasets(query))
   }
 
   handleUnloadDatasetClick(e) {
@@ -58,7 +57,7 @@ class Dataset extends Component {
                   <a className="u-textClean u-textWeight-700 u-text-r-xs u-color-50 u-margin-right-s" href="#">wms</a>
                 </p>
                 <h3 className="u-padding-r-top u-padding-r-bottom">
-                  <a className="u-text-h4 u-textClean u-color-black" href=""  onClick={this.handleLoadDatasetDetailClick.bind(this, dataset.resources[0].name)}>
+                  <a className="u-text-h4 u-textClean u-color-black" href=""  onClick={this.handleLoadDatasetDetailClick.bind(this, dataset.name)}>
                   {dataset.resources[0].name}
 							    </a>
                 </h3>
@@ -89,13 +88,11 @@ class Dataset extends Component {
     console.log('ope: ' + ope)
     if (ope != 'RECEIVE_DATASETS' && ope != 'RECEIVE_DATASET_DETAIL')
     return(
-      <form className="Form u-padding-r-top u-md-size7of12 u-lg-size5of12 u-layoutCenter">
+        <form className="Form u-padding-r-top u-md-size7of12 u-lg-size5of12 u-layoutCenter">
         <div className="Form-field Form-field--withPlaceholder Grid u-background-white u-color-grey-30 u-borderRadius-s u-borderShadow-xxl">
           <button className="Grid-cell u-sizeFit Icon-search u-color-grey-40 u-text-r-m u-padding-all-s u-textWeight-400">
           </button>
-          <input className="Form-input Form-input--ultraLean Grid-cell u-sizeFill u-text-r-s u-color-black u-text-r-xs u-borderHideFocus " required="" id="esplora" name="esplora" ref="esplora" />
-          <label className="Form-label u-color-grey-50 u-padding-left-xxl" htmlFor="esplora"><span className="u-hidden u-md-inline u-lg-inline">
-            cerca</span></label>
+              <Autocomplete ref="auto"/>
           <button type="submit" className="Grid-cell u-sizeFit u-background-60 u-color-white u-textWeight-600 u-padding-r-left u-padding-r-right u-textUppercase u-borderRadius-s" onClick={this.handleLoadDatasetClick}>Esplora</button>
         </div>
       </form>
@@ -120,6 +117,7 @@ class Dataset extends Component {
               <a href="#" title="" className="u-padding-all-xxs u-color-50 u-inlineBlock u-borderRadius-circle u-alignMiddle u-textWeight-600">Categoria 3</a>
             </li>
           </ul>
+          <br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
       );
   }
@@ -138,10 +136,8 @@ class Dataset extends Component {
                   <div className="Form-field Form-field--withPlaceholder Grid u-background-white u-color-grey-30 u-borderRadius-s u-border-all-xxs">
                     <button className="Grid-cell u-sizeFit Icon-search u-color-grey-40 u-text-r-m u-padding-all-s u-textWeight-400">
                     </button>
-                    <input className="Form-input Form-input--ultraLean Grid-cell u-sizeFill u-text-r-s u-color-black u-text-r-xs u-borderHideFocus " required="" id="esplora" name="cerca" value="trasporti" />
-                    <label className="Form-label u-color-grey-50 u-padding-left-xxl" htmlFor="esplora"><span className="u-hidden u-md-inline u-lg-inline">
-                      Cerca</span></label>
-                    <button type="submit" className="Grid-cell u-sizeFit u-background-60 u-color-white u-textWeight-600 u-padding-r-left u-padding-r-right u-textUppercase u-borderRadius-s">Applica filtro</button>
+                    <Autocomplete ref="auto" querystring={this.refs.auto.state.value}/>
+                    <button type="submit" className="Grid-cell u-sizeFit u-background-60 u-color-white u-textWeight-600 u-padding-r-left u-padding-r-right u-textUppercase u-borderRadius-s" onClick={this.handleLoadDatasetClick}>Esplora</button>
                   </div>
                 </fieldset>
               </form>
@@ -197,7 +193,7 @@ class Dataset extends Component {
                   <div className="Form-field">
 
                     <select className="Form-input u-text-r-xs u-borderRadius-m u-padding-top-s u-padding-bottom-s " id="ordinamento" aria-required="true">
-                      <option disabled="" selected="">Data dalla più recente</option>
+                      <option disabled="" defaultValue="">Data dalla più recente</option>
                       <option>Data dalla più lontana</option>
                       <option>Per categoria</option>
                     </select>
