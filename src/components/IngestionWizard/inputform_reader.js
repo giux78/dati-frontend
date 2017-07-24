@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export {getJsonCatalog, getJsonDataschema}
+export {getJsonCatalog, getJsonDataschema, sendPostDataMeta}
 
 function getJsonCatalog(){
   var json = {}
@@ -12,6 +12,41 @@ function getJsonCatalog(){
   console.log(JSON.stringify(json))
   return json
 }
+
+function sendPostDataMeta(json, file) {
+    $.ajax({
+    type: "POST",
+    url: "http://localhost:9000/catalog-manager/v1/catalog-ds/add",
+    dataType: 'json',
+    data: JSON.stringify(json),
+    contentType: "application/json",
+    success: function( data ) {
+      console.log(data)
+      alert('ok')
+      if (file){
+      var formData = new FormData();
+      formData.append("upfile", file, "agency.txt")
+    //  $.ajax({
+    //      type: "POST",
+    //      url: "http://localhost:9001/ingestion-manager/v1/add-datasets/" + encodeURIComponent(data.message),
+    //      data: formData,
+    //      processData: false,
+    //      contentType: false,
+    //      mimeType: "multipart/form-data",
+    //      success: function( result ) {
+    //        console.log(result)
+    //        alert('second ok')
+    //      },
+    //      error: function (e) {
+    //        console.log(e)
+    //      }
+    //    });
+      }
+    }
+    })
+
+}
+
 
 function sendPostData(json) {
   var file = document.getElementById('ds_datafile').files[0];

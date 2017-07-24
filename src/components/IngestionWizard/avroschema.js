@@ -1,9 +1,6 @@
 import $ from 'jquery';
 import Papa from 'papaparse';
 
-export {processInputFile, getFlatSchema, processInputFileMetadata}
-
-
 const avro = require('avsc');
 
 function finalizeOps(json){
@@ -79,6 +76,32 @@ function getAvroSchema(json){
 }
 
 
+function processInputFileMetadata(files, callback) {
+  var file = files[0] //document.getElementById('ds_datafile').files[0];
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var text = reader.result;
+    try {
+      var json = JSON.parse(text);
+      alert(JSON.stringify(json));
+      callback(finalizeOpsMeta(json))
+    } catch (err) {
+      var objCsv = Papa.parse(text, { header: true, quoteChar: '"', dynamicTyping: true,
+        error: function(error, file) {alert(error)},
+        complete: function(results, file) {
+          alert(JSON.stringify(results.data));
+          callback(finalizeOpsMeta(results.data))
+        }
+      });
+    }
+
+  }
+  reader.readAsText(file);
+}
+
+
+/*
 function processInputFileMetadata(callback) {
   var file = document.getElementById('ds_datafile').files[0];
 
@@ -102,9 +125,9 @@ function processInputFileMetadata(callback) {
     }
 
   }
-
   reader.readAsText(file);
 }
+*/
 
 
 
@@ -136,3 +159,5 @@ function flatSchema2Avro(schema){
 
 }
 */
+
+export {processInputFile, getFlatSchema, processInputFileMetadata}
