@@ -7,10 +7,10 @@ import Footer from '../admin/components/Footer/';
 import Aside from '../admin/components/Aside/';
 import Dashboard from '../admin/views/Dashboard/'
 import IngestionForm from '../admin/views/IngestionForm/'
+import Ontologies from '../admin/views/Ontologies/'
 import IngestionWizard from '../admin/views/IngestionWizard/';
-import  HeaderAuth  from '../components/HeaderFooter/HeaderAuth';
+import HeaderAuth  from '../components/HeaderFooter/HeaderAuth';
 import UserStoryContainer from './UserStoryContainer.js'
-//import { HeaderAuth } from '../components/HeaderFooter/HeaderAuth';
 
 const mapStateToProps = state => ({
   appName: state.appName
@@ -32,6 +32,7 @@ class Full extends React.Component {
                 <Route path="/admin/ingestionform" name="Forms" component={IngestionForm} />
                 <Route path="/admin/ingestionwizzard" name="Forms" component={IngestionWizard} />
                 <Route path="/admin/dash" name="Dash" component={UserStoryContainer} />
+                <Route path="/admin/ontologies" name="Ontologies" component={Ontologies} />
                 <Redirect from="/admin" to="/admin/dashboard" />
               </Switch>
             </div>
