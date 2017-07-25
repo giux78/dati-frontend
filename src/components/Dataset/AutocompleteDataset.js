@@ -1,76 +1,73 @@
 import React, { Component } from 'react'
 import Autosuggest from 'react-autosuggest';
+import categoriesFile from '../../data/categories.js'
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// filterType is the variable that set the right filter depends on input data
-//  1 - dataset
-//  2 - ontologies
 function getSuggestions(value, categories, filterType) {
   const escapedValue = escapeRegexCharacters(value.trim());
   if (escapedValue === '') {
     return [];
   }
-
   const regex = new RegExp('^' + escapedValue, 'i');
-  switch (filterType){
-    case '1':  return categories.filter(category => regex.test(category.name));
-    case '2':  return ontologiesFilter(categories, regex);
-    default: return categories
-  }
-  
+  return categories.filter(category => regex.test(category.name));
 }
-
-function ontologiesFilter(categories, regex){
-      var res = [];
-      categories.forEach(function(entry) {
-              //console.log('entry: ' + entry['http://www.w3.org/2000/01/rdf-schema#label']);
-              var obj = entry['http://www.w3.org/2000/01/rdf-schema#label'];
-              obj.forEach(function(lang) {
-                //console.log('lang: ' + lang['xml:lang']);
-                if(lang['xml:lang'] == 'it'){
-                  //console.log('lang1: ' + lang['value']);
-                  if(regex.test(lang['value'])){
-                      //console.log('lang2: ' + lang['value']);
-                      entry.name = lang['value'];
-                      res.push(entry);
-                  }
-                }
-              })
-            });
-      return res; 
-}
-
 
 function getSuggestionValue(suggestion) {
-  return suggestion.name;
+  return suggestion.title;
 }
 
 function renderSuggestion(suggestion) {
   return (
-    <span>{suggestion.name}</span>
+    <span>{suggestion.title}</span>
   );
 }
 
-class Autocomplete extends Component {
+class AutocompleteDataset extends Component {
   constructor(props) {
     super(props);
     if(this.props.querystring)
       this.state = {
       value: this.props.querystring,
-      suggestions: []
+      suggestions: [],
+      categories: []
     };    
     else
     this.state = {
       value: '',
-      suggestions: []
+      suggestions: [],
+      categories: []
     };    
   }
 
+  loadCkanSuggestion(newValue) {
+    console.log('loadCkanSuggestion - newValue: ' + newValue);    
+    var that = this;
+    var url = 'http://91.206.129.236:5000/api/3/action/package_autocomplete?q=' + newValue;
+
+    if(process.env.NODE_ENV=='development'){
+        that.setState({ categories: categoriesFile });
+      }else {
+        fetch(url, {
+          method: 'GET'
+        })
+        .then(function(response) {
+          if (response.status >= 400) {
+            throw new Error("Bad response from server");
+          }
+          return response.json();
+        })
+        .then(function(data) {
+          that.setState({ categories: data.result });
+        });
+    }
+  }
+
   onChange = (event, { newValue, method }) => {
+    this.loadCkanSuggestion(newValue);
     this.setState({
       value: newValue
     });
@@ -78,7 +75,7 @@ class Autocomplete extends Component {
   
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value, this.props.categories, this.props.filterType)
+      suggestions: getSuggestions(value, this.state.categories, this.props.filterType)
     });
   };
 
@@ -109,5 +106,5 @@ class Autocomplete extends Component {
   }
 }
 
-export default Autocomplete
+export default AutocompleteDataset
 
