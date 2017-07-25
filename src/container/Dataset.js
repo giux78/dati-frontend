@@ -6,8 +6,7 @@ import {
   unloadDatasets,
   datasetDetail
 } from '../actions'
-import Autocomplete from '../components/Dataset/Autocomplete.js'
-import categories from '../data/categories.js'
+import AutocompleteDataset from '../components/Dataset/AutocompleteDataset.js'
 
 class Dataset extends Component {
   constructor(props) {
@@ -92,7 +91,7 @@ class Dataset extends Component {
         <div className="Form-field Form-field--withPlaceholder Grid u-background-white u-color-grey-30 u-borderRadius-s u-borderShadow-xxl">
           <button className="Grid-cell u-sizeFit Icon-search u-color-grey-40 u-text-r-m u-padding-all-s u-textWeight-400">
           </button>
-              <Autocomplete ref="auto" categories={categories} filterType={'1'}/>
+              <AutocompleteDataset ref="auto"/>
           <button type="submit" className="Grid-cell u-sizeFit u-background-60 u-color-white u-textWeight-600 u-padding-r-left u-padding-r-right u-textUppercase u-borderRadius-s" onClick={this.handleLoadDatasetClick}>Esplora</button>
         </div>
       </form>
@@ -136,7 +135,7 @@ class Dataset extends Component {
                   <div className="Form-field Form-field--withPlaceholder Grid u-background-white u-color-grey-30 u-borderRadius-s u-border-all-xxs">
                     <button className="Grid-cell u-sizeFit Icon-search u-color-grey-40 u-text-r-m u-padding-all-s u-textWeight-400">
                     </button>
-                    <Autocomplete ref="auto" querystring={this.refs.auto.state.value} categories={categories} filterType={'1'}/>
+                    <AutocompleteDataset ref="auto" querystring={this.refs.auto.state.value}/>
                     <button type="submit" className="Grid-cell u-sizeFit u-background-60 u-color-white u-textWeight-600 u-padding-r-left u-padding-r-right u-textUppercase u-borderRadius-s" onClick={this.handleLoadDatasetClick}>Esplora</button>
                   </div>
                 </fieldset>
