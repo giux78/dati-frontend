@@ -1,6 +1,9 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
+import TestSelect from './TestSelect';
+
+import 'react-select/dist/react-select.css';
 
 
 const isStd = ['true'];
@@ -26,11 +29,12 @@ const renderColorSelector = ({ input, meta: { touched, error } }) => (
   </div>
 );
 
+//  <Field name="git" ref="git" type="text" component={TestSelect}/>
+
 const WizardFormThirdPage = props => {
   const { handleSubmit, pristine, previousPage, submitting } = props;
   return (
     <form className="from-horizontal" onSubmit={handleSubmit}>
-
       <div>
         <label htmlFor="uri">Dataset Uri</label>
         <div>
@@ -41,6 +45,7 @@ const WizardFormThirdPage = props => {
             type="text"
           />
         </div>
+       
       </div>
         <div>
         <label>Ownership</label>

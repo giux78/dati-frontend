@@ -8,7 +8,6 @@ import {getJsonDataschema, sendPostDataMeta} from '../components/IngestionWizard
 const transformer = values => {
   var metacatalog = {}
   metacatalog = createMetacatalog(values, metacatalog)
-
   console.log(JSON.stringify(values))
   console.log(JSON.stringify(metacatalog))
   return metacatalog
@@ -17,7 +16,6 @@ const transformer = values => {
 const showResults = values =>{
   const transformed = transformer(values)
   sendPostDataMeta(transformed, undefined)
-  
   }
   //new Promise(resolve => {
   //  setTimeout(() => {

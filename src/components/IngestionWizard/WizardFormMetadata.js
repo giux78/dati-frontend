@@ -21,7 +21,7 @@ const calcDataFields = (fields, files) =>
       <Dropzone
         name="input"
         onDrop={( filesToUpload, e ) => {
-          const files = filesToUpload
+          input = filesToUpload[0]
           calcDataFields(fields, filesToUpload)    
           }
         }>
@@ -32,8 +32,15 @@ const calcDataFields = (fields, files) =>
         <span>
           {error}
         </span>}
-      
-        <ul>    
+
+        <ul>
+                <Field
+            name="fff"
+            component="file"
+            type="file"
+            placeholder="fff"
+            value={input}
+          />     
       {fields.map((test, index) =>
       <li key={index}>
         <button
@@ -63,6 +70,7 @@ const calcDataFields = (fields, files) =>
     )}
         </ul>
     </div>
+ 
 
 const renderField = ({ input, label, type, value = '', meta: { touched, error } }) =>
   <div>

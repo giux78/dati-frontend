@@ -3,7 +3,7 @@ export function createOperational (values, data) {
   data[operational] = {}
   data[operational]['uri'] = values.uri
   data[operational]['group_own'] = values.ownership
-  data[operational]['is_std'] = values.is_std
+  data[operational]['is_std'] = (values.is_std === 'true')
   if (!values.is_std){
     data[operational]['is_std'] = false
   }
@@ -48,7 +48,7 @@ export function createDcat (values, data) {
 export function createDataschema (values, data) {
   var dataschema = 'dataschema'
   var avro = 'avro'
-  var dcatapit = 'dcatapit'
+  var flatSchema = 'flatSchema'
   data[dataschema] = {}
   data[dataschema][avro] = {}
   data[dataschema][avro]['namespace'] = values.namespace
@@ -56,12 +56,18 @@ export function createDataschema (values, data) {
   data[dataschema][avro]['aliases'] = values.aliases
   data[dataschema][avro]['fields'] =  []
   data[dataschema][avro]["`type`"] = "record"
+  data[dataschema][flatSchema] = []
   values.tests.map(function(item){
     var name = item.nome
     var tipo = item.tipo
     var obj = {'name' : name, "`type`" : tipo}
+    var metadata = { "desc": "", "required": 0, "field_type": "","cat": "","tag": "","constr": [{"`type`": "","param": ""}],"semantics": {"id": "","context": ""}}
     data[dataschema][avro]['fields'].push(obj)
+    var flat = {'name' : name, "`type`" : tipo, 'metadata' : metadata }
+    data[dataschema][flatSchema].push(flat)
+
   })
+
   return data
 }
 
