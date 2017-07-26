@@ -13,6 +13,7 @@ function getJsonCatalog(){
   return json
 }
 
+
 function sendPostData(json) {
   var file = document.getElementById('ds_datafile').files[0];
   $.ajax({
