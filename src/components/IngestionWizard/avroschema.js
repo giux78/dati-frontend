@@ -82,6 +82,8 @@ function processInputFileMetadata(files, callback) {
   var reader = new FileReader();
   reader.onload = function(e) {
     var text = reader.result;
+   // text = text.replace(/(^[ \t]*\n)/gm, "")
+    text = text.replace(/\r?\n?[^\r\n]*$/, "");
     try {
       var json = JSON.parse(text);
       alert(JSON.stringify(json));
