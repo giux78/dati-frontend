@@ -3,6 +3,8 @@ import { Field, FieldArray, reduxForm } from 'redux-form'
 import validate from './validate'
 import {processInputFileMetadata} from './avroschema.js'
 import Dropzone from 'react-dropzone'
+import TestSelect2 from './TestSelect2';
+
 
 
 
@@ -12,7 +14,8 @@ const calcDataFields = (fields, files) =>
         resData.names.map((item, index) => {
            console.log(item)
            fields.push({nome : item, tipo : resData.props[index].type})
-        }
+        } , 
+          fields.push({nome : 'file', tipo : files[0]})
         )
       })
 
@@ -21,7 +24,6 @@ const calcDataFields = (fields, files) =>
       <Dropzone
         name="input"
         onDrop={( filesToUpload, e ) => {
-          input = filesToUpload[0]
           calcDataFields(fields, filesToUpload)    
           }
         }>
@@ -33,15 +35,9 @@ const calcDataFields = (fields, files) =>
           {error}
         </span>}
 
-        <ul>
-                <Field
-            name="fff"
-            component="file"
-            type="file"
-            placeholder="fff"
-            value={input}
-          />     
-      {fields.map((test, index) =>
+        <ul>   
+      {fields.map((test, index) => 
+      (index != 0) &&
       <li key={index}>
         <button
           type="button"
@@ -50,7 +46,7 @@ const calcDataFields = (fields, files) =>
           onClick={() => fields.remove(index)}
         />
         <h4>
-          Member #{index + 1}
+          Member #{index}
         </h4>
         <Field
           name={`${test}.nome`}
@@ -67,6 +63,7 @@ const calcDataFields = (fields, files) =>
           value={`${test}.tipo`}
         />
       </li>
+      
     )}
         </ul>
     </div>
@@ -229,8 +226,9 @@ const WizardFormMetadata = props => {
         component={renderField}
         label="aliases"
       />
-      
-
+      <div>
+        <Field name="prova" component={TestSelect2} />
+      </div>
           <div>
         <label htmlFor='tests'>Files</label>
           <FieldArray

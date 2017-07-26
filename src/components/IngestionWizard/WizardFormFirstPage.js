@@ -3,6 +3,28 @@ import { Field, reduxForm } from 'redux-form'
 import validate from './validate'
 import renderField from './renderField'
 
+const themes = [
+{'val' : 'AGRI', 'name' : 'AGRICOLTURA'},{'val' : 'EDUC', 'name' : 'EDUCAZIONE'},
+{'val' : 'ECON', 'name' : 'ECONOMIA'},{'val' : 'AGRI', 'name' : 'AGRICOLTURA'},
+{'val' : 'ENVI', 'name' : 'AMBIENTE'},{'val' : 'HEAL', 'name' : 'SANITA'},
+{'val' : 'INTR', 'name' : 'INTERNAZIONALE'},{'val' : 'JUST', 'name' : 'GIUSTIZIA'},
+{'val' : 'SOCI', 'name' : 'REGIONE'},{'val' : 'TECH', 'name' : 'TECNOLOGIA'},
+{'val' : 'TRAN', 'name' : 'TRASPORTO'}]
+
+
+
+
+const renderThemes = ({ input, meta: { touched, error } }) => (
+  <div>
+    <select {...input}>
+      <option value="ECON"  key='theme'>ECONOMIA</option>
+      {themes.map(value => <option value={value.val} key={value.val}>{value.name}</option>)}
+    </select>
+    {touched && error && <span>{error}</span>}
+  </div>
+);
+
+
 const WizardFormFirstPage = props => {
   const { handleSubmit } = props
   return (
@@ -28,7 +50,7 @@ const WizardFormFirstPage = props => {
       <Field
         name="theme"
         type="text"
-        component={renderField}
+        component={renderThemes}
         label="Themes"
       />
       <Field
