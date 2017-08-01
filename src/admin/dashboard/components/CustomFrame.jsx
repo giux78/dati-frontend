@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 const CustomFrame = ({children, onRemove, editable, title}) => {
   return (
-    <div className="x_panel fixed_height_320">
+    <div className="x_panel fixed_height_320" style={{height:'400px'}}>
       <div className="x_title">
           <h2>{title}</h2>
           <ul className="nav navbar-right panel_toolbox">

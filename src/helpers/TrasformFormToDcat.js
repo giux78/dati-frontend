@@ -22,13 +22,13 @@ export function createDcat (values, data) {
   data[dcatapit] = {}
   data[dcatapit]['name'] = values.title
   data[dcatapit]['title'] = values.title
-  data[dcatapit]['identifier'] = values.identifier
-  data[dcatapit]['alternate_identifier'] = values.identifier
+  data[dcatapit]['identifier'] = values.title //values.identifier
+  data[dcatapit]['alternate_identifier'] = values.title //values.identifier
   data[dcatapit]['notes'] = values.notes
-  data[dcatapit]['theme'] = "ECON" //values.theme
-  data[dcatapit]['publisher_name'] = values.publisher_editor
-  data[dcatapit]['publisher_editor'] = values.publisher_editor
-  data[dcatapit]['publisher_identifier'] = values.publisher_editor
+  data[dcatapit]['theme'] =  (values.theme) ? values.theme  : 'ECON'
+  data[dcatapit]['publisher_name'] = 'testorg'//values.publisher_editor
+  data[dcatapit]['publisher_editor'] = 'testorg'//values.publisher_editor
+  data[dcatapit]['publisher_identifier'] = 'testorg'//values.publisher_editor
   data[dcatapit]['modified'] = '2017-07-23' //values.creation_date
   data[dcatapit]['holder_name'] = 'testorg' //values.holder_name
   data[dcatapit]['holder_identifier'] = 'testorg' //values.holder_identifier
@@ -49,15 +49,17 @@ export function createDataschema (values, data) {
   var dataschema = 'dataschema'
   var avro = 'avro'
   var flatSchema = 'flatSchema'
+  var theme = (values.theme) ? values.theme  : 'ECON'
   data[dataschema] = {}
   data[dataschema][avro] = {}
-  data[dataschema][avro]['namespace'] = values.namespace
-  data[dataschema][avro]['name'] = values.name
-  data[dataschema][avro]['aliases'] = values.aliases
+  data[dataschema][avro]['namespace'] = 'daf://testorg' + '/' + theme +'/' + values.title
+  data[dataschema][avro]['name'] = values.title
+  data[dataschema][avro]['aliases'] = values.title
   data[dataschema][avro]['fields'] =  []
   data[dataschema][avro]["`type`"] = "record"
   data[dataschema][flatSchema] = []
   values.tests.map(function(item){
+    if(item.nome !== 'file'){
     var name = item.nome
     var tipo = item.tipo
     var obj = {'name' : name, "`type`" : tipo}
@@ -65,7 +67,7 @@ export function createDataschema (values, data) {
     data[dataschema][avro]['fields'].push(obj)
     var flat = {'name' : name, "`type`" : tipo, 'metadata' : metadata }
     data[dataschema][flatSchema].push(flat)
-
+    }
   })
 
   return data

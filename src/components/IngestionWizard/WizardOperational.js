@@ -2,8 +2,7 @@ import React from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import validate from './validate';
 import TestSelect from './TestSelect';
-import { connect  } from 'react-redux';
-
+import { connect } from 'react-redux';
 
 import 'react-select/dist/react-select.css';
 
@@ -32,27 +31,13 @@ const renderYesNoSelector = ({ input, meta: { touched, error } }) => (
   </div>
 );
 
-const pushOrPull = ({ input, meta: { touched, error } }) => (
-  <div>
-    <select {...input}>
-      <option value={true} defaultValue>Invia</option>
-      <option value={false} >Esponi</option>)}
-    </select>
-    {touched && error && <span>{error}</span>}
-  </div>
-);
+//  
 
-const ftpOrWebservice = ({ input, meta: { touched, error } }) => (
-  <div>
-    <select {...input}>
-      <option value='sftp' defaultValue='sftp' selected>sFTP</option>
-      <option value='webservice' >Webservice</option>)}
-    </select>
-    {touched && error && <span>{error}</span>}
-  </div>
-);
-
-/*       <div>
+let WizardOperational = props => {
+  const { handleSubmit, pristine, previousPage, submitting, isStandard, isOk } = props;
+  return (
+    <form className="from-horizontal" onSubmit={handleSubmit}>
+      <div>
         <label htmlFor="uri">Dataset Uri</label>
         <div>
           <Field
@@ -69,28 +54,6 @@ const ftpOrWebservice = ({ input, meta: { touched, error } }) => (
         <div>
           <Field name="ownership" component="input" type="text" placeholder="ownership" />
         </div>
-      </div> */
-
-
-let WizardFormThirdPage = props => {
-  const { handleSubmit, pristine, previousPage, submitting, isStandard, isOk, isPush, isFtp } = props;
-  return (
-    <form className="from-horizontal" onSubmit={handleSubmit}>
-
-      <div>
-        <label>Esponi i dati o li invii?</label>
-        <Field name="pushOrPull" component={pushOrPull} />
-      </div>
-       <div>
-        <label>SFTP or web service</label>
-        <div>
-          <Field name="ftporws" component={ftpOrWebservice} />
-        </div>
-      </div>
-        {(isFtp === 'sftp') 
-            ? <div><Field name="sftp" component="input" type="text" placeholder="sftp://..." /></div>
-            : <div><Field name="sftp" component="input" type="text" placeholder="https://.." /></div>
-        }
         <div>
         <label>Definisce uno standard?</label>
         <Field name="is_std" component={renderYesNoSelector} />
@@ -101,11 +64,11 @@ let WizardFormThirdPage = props => {
         <div>
           <Field name="uri_associato" component="input" type="text" placeholder="uri associato" />
         </div>
-        <Field name="country" component={TestSelect}  url='http://localhost:9000/catalog-manager/v1/dataset-catalogs/standard-uris' />
+        <Field name="country" component={TestSelect}  url='https://api.myjson.com/bins/4gzai' />
 
       </div>}
 
-
+      </div>
       <div>
         <label>Tipo Lettura del dataset</label>
         <Field name="read_type"  component={renderTipoLettura} />
@@ -123,28 +86,23 @@ let WizardFormThirdPage = props => {
 //
 // Decorate with connect to read form values
 const selector = formValueSelector('wizard') // <-- same as form name
-WizardFormThirdPage = connect(state => {
+WizardOperational = connect(state => {
   // can select values individually
   const isOk = selector(state, 'is_std')
-  const isPush = selector(state, 'pushOrPull')
-  let isFtp = "sftp"
-  isFtp = selector(state, 'ftporws')
   return {
-    isOk,
-    isPush,
-    isFtp
+    isOk
   }
 })(WizardFormThirdPage)
 
 
-WizardFormThirdPage = reduxForm({
+WizardOperational = reduxForm({
   form: 'wizard', //                 <------ same form name
   destroyOnUnmount: false, //        <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate,
-})(WizardFormThirdPage);
+})(WizardOperational);
 
-export default WizardFormThirdPage
+export default WizardOperational
 
 
 //export default reduxForm({
