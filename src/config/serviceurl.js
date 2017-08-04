@@ -3,7 +3,7 @@ export const serviceurl = {
   "DatasetBackend": {
     "Search": {
       "host": "localhost",
-      "port": 9000,
+      "port": 9002,
       "nameSearch": "/dati-gov/v1/ckan/searchDataset",
       "nameDetail": "/dati-gov/v1/ckan/datasets/"
     }
